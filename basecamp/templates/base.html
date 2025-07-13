@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bullet Basecamp - Motorcycle Tours, Rentals & Repairs{% endblock %}</title>
+    <meta name="description" content="{% block description %}Bullet Basecamp offers premium motorcycle tours, rentals, and repair services. Experience the thrill of Royal Enfield adventures.{% endblock %}">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- Local Business Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MotorcycleRepair",
+        "name": "Bullet Basecamp Pokhara",
+        "alternateName": "Bullet Basecamp",
+        "description": "Best motorcycle repair shop, Royal Enfield tours and bike rental in Pokhara Nepal. Located in Lakeside near Phewa Lake.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Lakeside Road, Ward No. 6, Baidam",
+            "addressLocality": "Pokhara",
+            "addressRegion": "Kaski District",
+            "postalCode": "33700",
+            "addressCountry": "NP"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "28.2096",
+            "longitude": "83.9856"
+        },
+        "telephone": "+977-984-123-4567",
+        "email": "info@bulletbasecamppokhara.com",
+        "url": "https://bulletbasecamppokhara.com",
+        "openingHours": "Mo-Su 07:00-21:00",
+        "priceRange": "$$",
+        "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+        "currenciesAccepted": "NPR, USD",
+        "areaServed": ["Pokhara", "Kaski District", "Nepal", "Lakeside", "Baidam"],
+        "serviceType": ["Motorcycle Repair", "Royal Enfield Service", "Motorcycle Tours", "Bike Rental", "Oil Change", "Puncture Repair", "Emergency Service"],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Motorcycle Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Royal Enfield Repair Service",
+                        "description": "Expert Royal Enfield motorcycle repair and maintenance in Pokhara"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Himalayan Motorcycle Tours",
+                        "description": "Guided motorcycle tours from Pokhara to Annapurna, Mustang and Himalayas"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Royal Enfield Rental",
+                        "description": "Daily and weekly motorcycle rental in Pokhara Lakeside"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="keywords" content="motorcycle repair Pokhara, Royal Enfield service Pokhara, bike rental Pokhara, Himalayan tours Pokhara, motorcycle workshop Lakeside">
+    <meta name="geo.region" content="NP-Kaski">
+    <meta name="geo.placename" content="Pokhara">
+    <meta name="geo.position" content="28.2096;83.9856">
+    <meta name="ICBM" content="28.2096, 83.9856">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages" id="flashMessages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}" data-category="{{ category }}">
+                        <div class="flash-icon">
+                            {% if category == 'success' %}
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            {% elif category == 'error' %}
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            {% else %}
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                </svg>
+                            {% endif %}
+                        </div>
+                        <div class="flash-content">{{ message }}</div>
+                        <button class="flash-close" onclick="closeFlashMessage(this)" aria-label="Close message">×</button>
+                        <div class="flash-progress"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-logo"><span class="logo-bullet">Bullet</span> Basecamp</a>
+            
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}" class="nav-link" data-page="home">Home</a></li>
+                <li><a href="{{ url_for('tours') }}" class="nav-link" data-page="tours">Tours</a></li>
+                <li><a href="{{ url_for('rentals') }}" class="nav-link" data-page="rentals">Rentals</a></li>
+                <li><a href="{{ url_for('repairs') }}" class="nav-link" data-page="repairs">Repairs</a></li>
+                <li><a href="{{ url_for('about') }}" class="nav-link" data-page="about">About</a></li>
+                <li><a href="{{ url_for('contact') }}" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Bullet Basecamp Pokhara</h3>
+                    <p class="footer-text">Pokhara's premier motorcycle workshop. Royal Enfield repair, Himalayan tours, and bike rentals in Lakeside Pokhara Nepal.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('tours') }}">Motorcycle Tours</a></li>
+                        <li><a href="{{ url_for('rentals') }}">Bike Rentals</a></li>
+                        <li><a href="{{ url_for('repairs') }}">Repairs & Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Pokhara Workshop</h4>
+                    <p class="footer-text">Lakeside Road, Ward No. 6<br>Baidam, Pokhara 33700, Nepal<br>Phone: +977-984-123-4567<br>Email: info@bulletbasecamppokhara.com</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bullet Basecamp. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Floating Button -->
+    {% if is_admin %}
+    <div class="admin-fab">
+        <button class="admin-fab-button" onclick="toggleAdminMenu()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9C15 10.66 13.66 12 12 12S9 10.66 9 12V9L3 7V9C3 10.66 4.34 12 6 12H8V22H10V16H14V22H16V12H18C19.66 12 21 10.66 21 9Z" fill="currentColor"/>
+            </svg>
+        </button>
+        <div class="admin-fab-menu">
+            <div class="admin-fab-header">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; margin-right: 8px;">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#FF6B35"/>
+                </svg>
+                <span>Rohan Chhetri</span>
+            </div>
+            <a href="{{ url_for('admin_dashboard') }}" class="admin-fab-item">
+                <svg class="admin-fab-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" fill="currentColor"/>
+                </svg>
+                Dashboard
+            </a>
+            <a href="{{ url_for('admin_tours') }}" class="admin-fab-item">
+                <svg class="admin-fab-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z" fill="currentColor"/>
+                </svg>
+                Tours
+            </a>
+            <a href="{{ url_for('admin_rentals') }}" class="admin-fab-item">
+                <svg class="admin-fab-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5,11L6.5,6.5H17.5L19,11M17.5,16A1.5,1.5 0 0,1 16,14.5A1.5,1.5 0 0,1 17.5,13A1.5,1.5 0 0,1 19,14.5A1.5,1.5 0 0,1 17.5,16M6.5,16A1.5,1.5 0 0,1 5,14.5A1.5,1.5 0 0,1 6.5,13A1.5,1.5 0 0,1 8,14.5A1.5,1.5 0 0,1 6.5,16M18.92,6C18.72,5.42 18.16,5 17.5,5H6.5C5.84,5 5.28,5.42 5.08,6L3,12V20A1,1 0 0,0 4,21H5A1,1 0 0,0 6,20V19H18V20A1,1 0 0,0 19,21H20A1,1 0 0,0 21,20V12L18.92,6Z" fill="currentColor"/>
+                </svg>
+                Rentals
+            </a>
+            <a href="{{ url_for('admin_messages') }}" class="admin-fab-item">
+                <svg class="admin-fab-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4C22,2.89 21.1,2 20,2M6,9H18V11H6V9M14,14H6V12H14V14M18,8H6V6H18V8Z" fill="currentColor"/>
+                </svg>
+                Messages
+            </a>
+            <a href="#" onclick="confirmLogout(event)" class="admin-fab-item logout">
+                <svg class="admin-fab-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" fill="currentColor"/>
+                </svg>
+                Logout
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Highlight current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Clear all active states first
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Determine current page
+            let currentPage = 'home';
+            
+            if (currentPath.includes('/tours') || currentPath.includes('/tour/')) {
+                currentPage = 'tours';
+            } else if (currentPath.includes('/rentals') || currentPath.includes('/bike/')) {
+                currentPage = 'rentals';
+            } else if (currentPath.includes('/repairs')) {
+                currentPage = 'repairs';
+            } else if (currentPath.includes('/about')) {
+                currentPage = 'about';
+            } else if (currentPath.includes('/contact')) {
+                currentPage = 'contact';
+            } else if (currentPath === '/' || currentPath === '') {
+                currentPage = 'home';
+            }
+            
+            // Set active state for current page
+            const activeLink = document.querySelector(`[data-page="${currentPage}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', function() {
+            const scrollProgressBar = document.getElementById('scrollProgressBar');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            scrollProgressBar.style.width = scrollPercent + '%';
+        });
+
+        // Force video autoplay on mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('.hero-video');
+            
+            videos.forEach(function(video) {
+                // Ensure video is muted and has playsinline
+                video.muted = true;
+                video.playsInline = true;
+                
+                // Try to play the video
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(function() {
+                        // Video started playing successfully
+                        console.log('Video autoplay successful');
+                    }).catch(function(error) {
+                        // Autoplay failed, try again on user interaction
+                        console.log('Autoplay failed, waiting for user interaction');
+                        
+                        // Add click listener to start video on first user interaction
+                        const startVideo = function() {
+                            video.play().catch(function(e) {
+                                console.log('Still failed to play:', e);
+                            });
+                            document.removeEventListener('click', startVideo);
+                            document.removeEventListener('touchstart', startVideo);
+                        };
+                        
+                        document.addEventListener('click', startVideo);
+                        document.addEventListener('touchstart', startVideo);
+                    });
+                }
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

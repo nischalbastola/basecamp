@@ -1,0 +1,22 @@
+# Bullet Basecamp Security Log
+# This file contains server startup and security-related events
+# 
+# Started: 2025-06-28
+# Last cleaned: 2025-06-28 (Removed CSRF-related errors from external sources)
+2025-06-28 19:37:11,420 INFO: The CSRF session token is missing.
+2025-06-28 19:37:11,422 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:11] "[31m[1mPOST /admin/login HTTP/1.1[0m" 400 -
+2025-06-28 19:37:40,624 INFO: The CSRF session token is missing.
+2025-06-28 19:37:40,627 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:40] "[31m[1mPOST /admin/login HTTP/1.1[0m" 400 -
+2025-06-28 19:37:43,149 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "GET / HTTP/1.1" 200 -
+2025-06-28 19:37:43,197 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-06-28 19:37:43,222 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-06-28 19:37:43,238 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "[36mGET /static/images/tours-preview.jpg HTTP/1.1[0m" 304 -
+2025-06-28 19:37:43,246 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "[36mGET /static/images/rentals-preview.jpg HTTP/1.1[0m" 304 -
+2025-06-28 19:37:43,254 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "[36mGET /static/images/repairs-preview.jpg HTTP/1.1[0m" 304 -
+2025-06-28 19:37:43,321 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "[35m[1mGET /static/videos/hero-motorcycle.mp4 HTTP/1.1[0m" 206 -
+2025-06-28 19:37:43,344 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:43] "[35m[1mGET /static/videos/hero-motorcycle.mp4 HTTP/1.1[0m" 206 -
+2025-06-28 19:37:45,756 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:45] "GET /admin/login HTTP/1.1" 200 -
+2025-06-28 19:37:45,828 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:45] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-06-28 19:37:45,840 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:45] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-06-28 19:37:50,033 INFO: The CSRF token is invalid.
+2025-06-28 19:37:50,035 INFO: 127.0.0.1 - - [28/Jun/2025 19:37:50] "[31m[1mPOST /admin/login HTTP/1.1[0m" 400 -

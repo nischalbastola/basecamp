@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}Bullet Basecamp Pokhara - #1 Royal Enfield Repair, Tours & Rentals in Lakeside Pokhara Nepal{% endblock %}
+{% block description %}Best motorcycle workshop in Pokhara Nepal. Royal Enfield repair, Himalayan bike tours, daily rentals in Lakeside. Emergency bike service, puncture repair, oil change. Open now!{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='videos/hero-motorcycle.mp4') }}" type="video/mp4">
+        <!-- Fallback for browsers that don't support video -->
+    </video>
+    
+    <div class="hero-content">
+        <p class="hero-tagline">Pokhara's Premier Motorcycle Hub</p>
+        <h1 class="hero-title">Bullet Basecamp Pokhara</h1>
+        <p class="body-text" style="color: #FFFFFF; font-size: 1.2rem; margin: 1.5rem 0;">
+            Ride. Repair. Roar. Pokhara’s ultimate motorcycle adventure hub.
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="{{ url_for('tours') }}" class="btn-primary">Himalayan Tours</a>
+            <a href="{{ url_for('rentals') }}" class="btn-secondary">Rent a Royal Enfield</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview Section -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center;">Best Motorcycle Services in Pokhara</h2>
+        <p class="body-text" style="text-align: center; max-width: 600px; margin: 0 auto;">
+            From epic Himalayan motorcycle tours to reliable Royal Enfield repair services in Lakeside Pokhara, we're your one-stop motorcycle workshop in Nepal.
+        </p>
+        
+        <div class="category-grid">
+            <!-- Tours Card -->
+            <div class="category-card" onclick="location.href='{{ url_for('tours') }}'">
+                <img src="{{ url_for('static', filename='images/tours-preview.jpg') }}" alt="Pokhara Himalayan Motorcycle Tours" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Himalayan Motorcycle Tours from Pokhara</h3>
+                    <p class="body-text">
+                        Guided Royal Enfield tours starting from Pokhara. Annapurna Circuit, Mustang, Upper Mustang adventures. Professional guides, all gear included.
+                    </p>
+                    <p class="price-text">Starting from NPR 65,000</p>
+                    <a href="{{ url_for('tours') }}" class="btn-primary" style="margin-top: 1rem;">View Pokhara Tours</a>
+                </div>
+            </div>
+            
+            <!-- Rentals Card -->
+            <div class="category-card" onclick="location.href='{{ url_for('rentals') }}'">
+                <img src="{{ url_for('static', filename='images/rentals-preview.jpg') }}" alt="Royal Enfield Rental Pokhara Lakeside" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Royal Enfield Rental in Pokhara</h3>
+                    <p class="body-text">
+                        Rent Royal Enfield motorcycles in Lakeside Pokhara. Daily/weekly rates, well-maintained bikes, insurance included. Best rental rates in Pokhara.
+                    </p>
+                    <p class="price-text">From NPR 4,500/day</p>
+                    <a href="{{ url_for('rentals') }}" class="btn-primary" style="margin-top: 1rem;">Rent in Pokhara</a>
+                </div>
+            </div>
+            
+            <!-- Repairs Card -->
+            <div class="category-card" onclick="location.href='{{ url_for('repairs') }}'">
+                <img src="{{ url_for('static', filename='images/repairs-preview.jpg') }}" alt="Motorcycle Repair Workshop Pokhara" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Motorcycle Repair Shop Pokhara</h3>
+                    <p class="body-text">
+                        Expert motorcycle mechanic in Pokhara. Royal Enfield servicing, puncture repair, oil change, emergency service. Open daily in Lakeside.
+                    </p>
+                    <p class="price-text">Free Estimates</p>
+                    <a href="{{ url_for('repairs') }}" class="btn-primary" style="margin-top: 1rem;">Get Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Story Section -->
+<section class="story-section">
+    <div class="container">
+        <h2 class="section-title" style="color: #FFFFFF;">Why Choose Bullet Basecamp Pokhara?</h2>
+        
+        <div class="category-grid">
+            <div class="story-card">
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">20+ Years in Pokhara</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Pokhara's most experienced motorcycle workshop. We've been serving tourists and locals in Lakeside Pokhara for over two decades.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">24/7 Emergency Service</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Emergency motorcycle repair in Pokhara. Call us anytime for roadside assistance, puncture repair, or breakdown service anywhere in Nepal.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Lakeside Location</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Conveniently located in Lakeside Pokhara near tourist area. Easy walking distance from hotels, restaurants, and Phewa Lake.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Carousel Section -->
+<section class="testimonials-section content-section">
+    <div class="container">
+        <h2 class="section-title testimonials-title">What Our Riders Say</h2>
+        
+        <div class="testimonial-carousel-wrapper">
+            <div class="testimonial-carousel" id="testimonialCarousel">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide active">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                            </svg>
+                            <p class="testimonial-text">Best motorcycle workshop in Pokhara! My Royal Enfield broke down during Annapurna circuit tour and they fixed it in 2 hours. Saved my entire Nepal trip. Professional service and fair prices.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">James Anderson</h4>
+                                <p class="author-title">Adventure Traveler, UK</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                            </svg>
+                            <p class="testimonial-text">Rented a Himalayan from Bullet Basecamp for 10 days. Perfect condition bike, all paperwork handled smoothly. Mr. Chhetri and team provided excellent support throughout my Mustang tour.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Sarah Mueller</h4>
+                                <p class="author-title">Solo Rider, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                            </svg>
+                            <p class="testimonial-text">Honest mechanics who don't overcharge tourists. Had puncture repair and oil change done quickly. Located right in Lakeside, very convenient. Highly recommend for any bike issues in Pokhara.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Raj Patel</h4>
+                                <p class="author-title">Local Biker, Kathmandu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                            </svg>
+                            <p class="testimonial-text">Amazing Upper Mustang tour organized by Bullet Basecamp! Professional guides, well-maintained Royal Enfields, and incredible support. Best motorcycle tour experience in Nepal. Worth every rupee!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">David Kim</h4>
+                                <p class="author-title">Photographer, South Korea</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                            </svg>
+                            <p class="testimonial-text">Emergency service saved us! Bike broke down at midnight near Gorkha. Called Bullet Basecamp and they came with spare parts. True 24/7 service. These guys are motorcycle heroes!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Mike O'Connor</h4>
+                                <p class="author-title">Backpacker, Australia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                            </svg>
+                            <p class="testimonial-text">Excellent Royal Enfield servicing! Brought my bike for complete tune-up before long Nepal tour. Thorough work, genuine parts, reasonable prices. Trust them completely with my motorcycle.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Priya Sharma</h4>
+                                <p class="author-title">Adventure Rider, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows (Desktop Only) -->
+            <button class="carousel-nav carousel-prev" aria-label="Previous testimonial">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            
+            <button class="carousel-nav carousel-next" aria-label="Next testimonial">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+
+            <!-- Dot Indicators -->
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0" aria-label="View testimonial 1"></button>
+                <button class="indicator" data-slide="1" aria-label="View testimonial 2"></button>
+                <button class="indicator" data-slide="2" aria-label="View testimonial 3"></button>
+                <button class="indicator" data-slide="3" aria-label="View testimonial 4"></button>
+                <button class="indicator" data-slide="4" aria-label="View testimonial 5"></button>
+                <button class="indicator" data-slide="5" aria-label="View testimonial 6"></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container" style="text-align: center;">
+        <h2 class="section-title">Need Motorcycle Service in Pokhara Today?</h2>
+        <p class="body-text" style="font-size: 1.1rem; margin: 2rem 0;">
+            Visit Pokhara's most trusted motorcycle workshop. Located in Lakeside, we're open daily for repairs, rentals, and tour bookings.
+        </p>
+        
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="{{ url_for('contact') }}#contact-form" class="btn-primary">Visit Our Workshop</a>
+            <a href="tel:+977-9841234567" class="btn-secondary" style="color: #000000; border-color: #000000;">Call Pokhara Shop</a>
+        </div>
+    </div>
+</section>
+{% endblock %} 

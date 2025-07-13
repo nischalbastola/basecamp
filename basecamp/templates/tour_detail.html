@@ -1,0 +1,956 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tour.title }} - Himalayan Motorcycle Tour - Bullet Basecamp{% endblock %}
+{% block description %}Book the {{ tour.title }} tour from Pokhara. {{ tour.description }} Guided Himalayan motorcycle adventures with Bullet Basecamp.{% endblock %}
+
+{% block content %}
+<!-- Hero Section for Tour Detail -->
+<section class="content-section" style="padding-top: 6rem; background: #F8F8F8;">
+    <div class="container">
+        <div class="bike-detail-hero">
+            <!-- Left Side - Image and Info -->
+            <div class="bike-image-section">
+                <div class="bike-main-image">
+                    <img src="{{ url_for('static', filename=get_image_path(tour.image)) }}" alt="{{ tour.title }}" class="main-bike-img">
+                    <div class="bike-location" style="display: flex; align-items: center; justify-content: center; margin-top: 0.75rem; gap: 0.5rem; font-size: 1rem; color: #444; font-weight: 500;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF6B35" style="vertical-align: middle; margin-right: 0.25rem;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Bullet Basecamp, Lakeside, Pokhara
+                    </div>
+                </div>
+                <div>
+                    <h1 class="bike-title">{{ tour.title }}</h1>
+                    <div class="bike-category">{{ tour.difficulty if tour.difficulty else 'TOUR' }}</div>
+                </div>
+                <div class="bike-specs">
+                    <div class="spec-item">
+                        <span class="spec-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L13.09 8.26L22 9L15.5 12L17 18.74L12 16L7 18.74L8.5 12L2 9L10.91 8.26L12 2Z"/>
+                            </svg>
+                        </span>
+                        <span class="spec-value">{{ tour.duration if tour.duration else '3 Days' }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11,4H13V16L18.5,21.5L17.08,22.92L12,17.84L6.92,22.92L5.5,21.5L11,16V4M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/>
+                            </svg>
+                        </span>
+                        <span class="spec-value">{{ tour.difficulty if tour.difficulty else 'Moderate' }}</span>
+                    </div>
+                </div>
+                <p class="body-text" style="margin-top: 1.5rem; color: #333;">{{ tour.description }}</p>
+            </div>
+            <!-- Right Side - Booking Panel -->
+            <div class="booking-panel" data-base-price="{{ tour.price.replace('NPR ', '').replace(',', '') }}">
+                <div class="rental-info">
+                    <div id="price-display-container">
+                        <div class="price-original-struck"></div>
+                        <div class="price-final">
+                            <span class="rental-price">{{ tour.price }}</span>
+                            <span class="price-period">/rider</span>
+                        </div>
+                        <div class="discount-tag"></div>
+                    </div>
+                </div>
+                <div class="booking-form">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: text-bottom; margin-right: 0.5rem;">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                </svg>
+                                START DATE
+                            </label>
+                            <input type="date" class="start-date-input" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 2px solid #E5E5E5; border-radius: 4px; font-family: 'Inter', sans-serif; background: #FFFFFF;">
+                        </div>
+                        <div class="form-group">
+                            <label>PICKUP TIME</label>
+                            <select class="time-input">
+                                <option value="09:00">9:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: text-bottom; margin-right: 0.5rem;">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                NUMBER OF RIDERS
+                            </label>
+                            <input type="number" class="riders-input" min="1" max="20" value="1" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 2px solid #E5E5E5; border-radius: 4px; font-family: 'Inter', sans-serif; background: #FFFFFF;">
+                            <div class="riders-error" style="color: #dc3545; font-size: 0.9rem; margin-top: 0.5rem; display: none;">Sorry, limit is 20 riders per booking.</div>
+                            <div class="discount-info" style="color: #28a745; font-size: 0.9rem; margin-top: 0.5rem; font-weight: 500;">
+                                3+ riders: 5% off<br>
+                                7+ riders: 10% off<br>
+                                14+ riders: 15% off
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="book-now-btn" id="book-now-btn">BOOK NOW</button>
+                    <button type="button" class="inquiry-btn" id="inquiry-btn">INQUIRY</button>
+                    <div class="booking-guarantee">
+                        Best price <strong>guaranteed.</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Highlights Section (replaces Included in the Price) -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title">Some Highlights</h2>
+        <p class="section-subtitle">WHAT MAKES THIS TOUR SPECIAL</p>
+        <div class="included-grid">
+            {% for highlight in tour.highlights %}
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 1,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">{{ highlight }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Available Add-ons -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container">
+        <h2 class="section-title">Available Add-ons</h2>
+        <p class="section-subtitle">NEED A LITTLE EXTRA?</p>
+        
+        <div class="addons-grid">
+            <div class="addon-item" data-price="500">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11,4A4,4 0 0,0 7,8V9H6V16H18V9H17V8A4,4 0 0,0 13,4H11M11,6H13A2,2 0 0,1 15,8V9H9V8A2,2 0 0,1 11,6M2,20C2,21.11 2.9,22 4,22H20C21.11,22 22,21.11 22,20V18H2V20Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Highway Permit</div>
+                    <div class="addon-price">+ NPR 500 <span>/rider</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-highway-permit">
+                    <label for="addon-highway-permit" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="300">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.5,3C19.33,3 20,3.67 20,4.5V20.5C20,21.33 19.33,22 18.5,22H5.5C4.67,22 4,21.33 4,20.5V4.5C4,3.67 4.67,3 5.5,3H18.5M7,6H6V7H7V6M7,9H6V10H7V9M7,12H6V13H7V12M7,15H6V16H7V15M7,18H6V19H7V18M18,6H17V7H18V6M18,9H17V10H18V9M18,12H17V13H18V12M18,15H17V16H18V15M18,18H17V19H18V18Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Riding Boots</div>
+                    <div class="addon-price">+ NPR 300 <span>/rider</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-riding-boots">
+                    <label for="addon-riding-boots" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="200">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.15,9.3C19.75,8.29 20,7.11 20,5.86C20,5.33 19.75,4.83 19.31,4.5C17.8,3.17 15.04,3.95 12,7C8.96,3.95 6.2,3.17 4.69,4.5C4.25,4.83 4,5.33 4,5.86C4,7.11 4.25,8.29 4.85,9.3C3.17,10.45 2,12.58 2,15A7,7 0 0,0 9,22H15A7,7 0 0,0 22,15C22,12.58 20.83,10.45 19.15,9.3Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Gloves</div>
+                    <div class="addon-price">+ NPR 200 <span>/rider</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-gloves">
+                    <label for="addon-gloves" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="400">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H20A6,6 0 0,0 14,8H10A6,6 0 0,0 4,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M9,12A1,1 0 0,1 10,13A1,1 0 0,1 9,14A1,1 0 0,1 8,13A1,1 0 0,1 9,12M15,12A1,1 0 0,1 16,13A1,1 0 0,1 15,14A1,1 0 0,1 14,13A1,1 0 0,1 15,12Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Premium Helmet</div>
+                    <div class="addon-price">+ NPR 400 <span>/rider</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-premium-helmet">
+                    <label for="addon-premium-helmet" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="600">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9V7L15,13L13.5,7.5C13.1,6.2 11.9,5.5 10.5,5.5C9.8,5.5 9.2,5.7 8.7,6.1L7,7.3C6.8,7.5 6.6,7.9 6.6,8.3S6.8,9.1 7,9.3L8.5,10.8L7.8,16L10.3,16.2L11.2,10.9L12.4,8L14,13.5L9.5,18.5C9.2,18.8 9,19.3 9,19.7S9.2,20.6 9.5,20.9L10.6,22L17,15.6V17H19V13H15V15H16.4L12,19.4L11.6,19L16.8,13.8L21,9M6,14H4V16H2V18H4V20H6V18H8V16H6V14Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Riding Jacket</div>
+                    <div class="addon-price">+ NPR 600 <span>/rider</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-riding-jacket">
+                    <label for="addon-riding-jacket" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="500">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A3,3 0 0,1 15,5V9A1,1 0 0,1 14,10H13V22H11V10H10A1,1 0 0,1 9,9V5A3,3 0 0,1 12,2M12,4A1,1 0 0,0 11,5V8H13V5A1,1 0 0,0 12,4Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Riding Pants</div>
+                    <div class="addon-price">+ NPR 500 <span>/rider</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-riding-pants">
+                    <label for="addon-riding-pants" class="toggle-label"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Price Display */
+#price-display-container {
+    position: relative;
+    text-align: right;
+}
+.price-final {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+.rental-price {
+    font-size: 2.5rem; /* Make the price larger */
+    font-weight: 900;
+    color: #000000;
+    line-height: 1;
+}
+.price-period {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    margin-left: 0.5rem;
+}
+.price-original-struck {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #999;
+    text-decoration: line-through;
+    height: 1.5rem; /* Reserve space */
+}
+.discount-tag {
+    background-color: #28a745;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.25rem;
+    height: 1.5rem; /* Reserve space */
+    visibility: hidden; /* Hide by default */
+}
+
+/* Floating Icon Animation */
+@keyframes float-up {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -160px) scale(1.5);
+    }
+}
+.floating-icon {
+    position: absolute;
+    z-index: 10;
+    animation: float-up 1.2s ease-out forwards;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+}
+
+.floating-price-text {
+    position: absolute;
+    z-index: 10;
+    animation: float-up 1.5s ease-out forwards;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #28a745;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Add-ons Grid */
+.addons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.addon-item {
+    background: #FFFFFF;
+    border: 2px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative; /* Needed for positioning the floating icon */
+}
+
+.addon-item:hover {
+    border-color: #FF6B35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.addon-item.selected {
+    border-color: #4CAF50;
+    background: #F1F8E9;
+}
+
+.addon-icon {
+    width: 48px;
+    height: 48px;
+    background: #F8F8F8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.addon-item:hover .addon-icon {
+    background: #FF6B35;
+    color: #FFFFFF;
+}
+
+.addon-item.selected .addon-icon {
+    background: #4CAF50;
+    color: #FFFFFF;
+}
+
+.addon-content {
+    flex: 1;
+}
+
+.addon-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.25rem;
+}
+
+.addon-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FF6B35;
+}
+
+.addon-price span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.addon-toggle {
+    position: relative;
+}
+
+.toggle-switch {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    display: block;
+    width: 50px;
+    height: 24px;
+    background: #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.toggle-label::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch:checked + .toggle-label {
+    background: #4CAF50;
+}
+
+.toggle-switch:checked + .toggle-label::before {
+    transform: translateX(26px);
+}
+
+.addon-item:hover .toggle-label {
+    background: #FF6B35;
+}
+
+.addon-item:hover .toggle-switch:checked + .toggle-label {
+    background: #4CAF50;
+}
+
+/* Inquiry Button */
+.inquiry-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    background: #FFFFFF;
+    color: #FF6B35;
+    border: 2px solid #FF6B35;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.inquiry-btn:hover {
+    background: #FF6B35;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+@media (max-width: 768px) {
+    .booking-panel {
+        width: 100%;
+    }
+    
+    .inquiry-btn {
+        margin-top: 0.25rem !important;
+    }
+}
+</style>
+
+<!-- Tour Policy Section -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title">Tour Policy</h2>
+        <p class="section-subtitle">THINGS TO KEEP IN MIND</p>
+        <div class="policy-grid">
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 6.75V5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v1.25M3 6.75V19.5A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5V6.75M3 6.75h18" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M8 11h8M8 15h5" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">Please treat the bikes, guides, and accommodations with respect. Any damage or loss is your responsibility.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2a2 2 0 0 1 2 2v2h-4V4a2 2 0 0 1 2-2zm-7 6v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                </div>
+                <div class="policy-text">A valid motorcycle license is required for all riders. Helmets and safety gear are mandatory.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M6 19h12M6 19v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M9 13h6" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">Fuel, meals, and personal expenses are not included unless specified in the itinerary.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M12 6v6l4 2" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">Tour time starts at the scheduled start date. Please be on time to avoid delays for the group.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M8 9v6M16 9v6" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">No refunds for early departure or missed days once the tour has started.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10zm-5 8v4" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="16" r="1" fill="#FF6B35"/>
+                        <path d="M8 8l8 8" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">Riding under the influence of alcohol or drugs is strictly prohibited for all participants.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Reviews -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container">
+        <h2 class="section-title">Latest Reviews</h2>
+        <p class="section-subtitle">HEAR IT FROM THEM</p>
+        <div class="reviews-container">
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-name">Ramesh K</div>
+                    <div class="review-date">15 Dec 2024</div>
+                    <div class="review-stars">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="review-text">
+                    Amazing experience on the {{ tour.title }}! The guides were awesome and the route was breathtaking. Highly recommend for anyone wanting to explore Nepal on two wheels.
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-name">Sarah M</div>
+                    <div class="review-date">08 Dec 2024</div>
+                    <div class="review-stars">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="review-text">
+                    Best tour experience in Pokhara! The team at Bullet Basecamp provided excellent service, great bikes, and all necessary gear. The {{ tour.title }} was unforgettable.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Similar Tours Section -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title">View Other Available Tours</h2>
+        <p class="section-subtitle">A FEW WE THINK YOU MIGHT LIKE</p>
+        <div class="similar-bikes-grid">
+            {% if other_tours %}
+                {% for other_tour in other_tours[:4] %}
+                <div class="similar-bike-card">
+                    <div style="background: #eee; border: 2px dashed #FF6B35; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ url_for('static', filename=get_image_path(other_tour.image)) }}" alt="{{ other_tour.title }}" class="similar-bike-image">
+                    </div>
+                    <div class="similar-bike-content">
+                        <div class="similar-bike-location">
+                            <span class="location-flag">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3,3V21L12,18L21,21V3H3M5,5H19V18.13L12,15.8L5,18.13V5Z"/>
+                                </svg>
+                            </span>
+                            <span class="location-text">Nepal, Pokhara</span>
+                            <div class="bike-rating">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <span>16 reviews</span>
+                            </div>
+                        </div>
+                        <h3 class="similar-bike-name">{{ other_tour.title }}</h3>
+                        <div class="similar-bike-pricing">
+                            <span class="price-from">from</span>
+                            <span class="price-amount">{{ other_tour.price }}</span>
+                            <span class="price-period">/rider</span>
+                            <a href="{{ url_for('tour_detail', tour_name=other_tour.title|replace(' ', '-')|lower) }}" class="view-btn">VIEW</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const bookingPanel = document.querySelector('.booking-panel');
+    const ridersInput = document.querySelector('.riders-input');
+    const addonCheckboxes = document.querySelectorAll('.addon-item input[type="checkbox"]');
+    const priceDisplay = document.querySelector('.rental-price');
+    const pricePeriod = document.querySelector('.price-period');
+    const originalPriceDisplay = document.querySelector('.price-original-struck');
+    const discountTag = document.querySelector('.discount-tag');
+    const ridersError = document.querySelector('.riders-error');
+    const startDateInput = document.querySelector('.start-date-input');
+    const timeInput = document.querySelector('.time-input');
+    const bookNowBtn = document.getElementById('book-now-btn');
+    const inquiryBtn = document.getElementById('inquiry-btn');
+    const discountInfo = document.querySelector('.discount-info');
+
+    const basePrice = parseFloat(bookingPanel.dataset.basePrice) || 0;
+
+    function formatPrice(amount) {
+        return 'NPR ' + amount.toLocaleString('en-US');
+    }
+
+    function calculateAndUpdatePrice() {
+        const riders = parseInt(ridersInput.value) || 1;
+        
+        // Calculate Add-ons total
+        let addonsTotal = 0;
+        addonCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                const item = checkbox.closest('.addon-item');
+                const addonPrice = parseFloat(item.dataset.price) || 0;
+                addonsTotal += addonPrice;
+            }
+        });
+
+        const totalPerRider = basePrice + addonsTotal;
+        let totalPrice = totalPerRider * riders;
+        let originalTotal = totalPrice;
+        let discountPercent = 0;
+
+        // Apply discounts for group bookings
+        if (riders >= 14) {
+            discountPercent = 15;
+        } else if (riders >= 7) {
+            discountPercent = 10;
+        } else if (riders >= 3) {
+            discountPercent = 5;
+        }
+
+        if (discountPercent > 0) {
+            totalPrice *= (1 - discountPercent / 100);
+            originalPriceDisplay.textContent = formatPrice(originalTotal);
+            discountTag.textContent = `${discountPercent}% OFF`;
+            discountTag.style.visibility = 'visible';
+        } else {
+            originalPriceDisplay.textContent = '';
+            discountTag.style.visibility = 'hidden';
+        }
+
+        priceDisplay.textContent = formatPrice(Math.round(totalPrice));
+        pricePeriod.textContent = riders > 1 ? `/ ${riders} riders` : '/rider';
+
+        // Update discount info text
+        discountInfo.textContent = `${riders >= 3 ? '3+ riders: 5% off' : ''} ${riders >= 7 ? '7+ riders: 10% off' : ''} ${riders >= 14 ? '14+ riders: 15% off' : ''}`;
+    }
+
+    function triggerFloatyPrice(addonItem) {
+        const addonPrice = parseFloat(addonItem.dataset.price) || 0;
+        if (addonPrice <= 0) return;
+
+        const riders = parseInt(ridersInput.value) || 1;
+        const floatyText = document.createElement('div');
+        floatyText.textContent = `+NPR ${addonPrice * riders}`;
+        floatyText.className = 'floating-price-text';
+        
+        floatyText.style.top = '50%';
+        floatyText.style.left = '50%';
+
+        addonItem.appendChild(floatyText);
+
+        // Clean up the DOM after animation
+        floatyText.addEventListener('animationend', () => {
+            floatyText.remove();
+        });
+    }
+
+    function validateForm() {
+        const riders = parseInt(ridersInput.value) || 0;
+        const startDate = startDateInput.value;
+        const pickupTime = timeInput.value;
+        
+        const isValid = riders >= 1 && startDate && pickupTime;
+        
+        if (isValid) {
+            bookNowBtn.disabled = false;
+            bookNowBtn.style.opacity = '1';
+            bookNowBtn.style.cursor = 'pointer';
+        } else {
+            bookNowBtn.disabled = false; // Keep button enabled but show validation
+            bookNowBtn.style.opacity = '1';
+            bookNowBtn.style.cursor = 'pointer';
+        }
+    }
+
+    function showValidationMessage(field, message) {
+        // Remove existing validation message
+        const existingMessage = field.parentNode.querySelector('.validation-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Add red border to the field
+        field.style.borderColor = '#dc3545';
+        
+        // Add new validation message
+        const validationMessage = document.createElement('div');
+        validationMessage.className = 'validation-message';
+        validationMessage.style.color = '#dc3545';
+        validationMessage.style.fontSize = '0.9rem';
+        validationMessage.style.marginTop = '0.5rem';
+        validationMessage.style.fontWeight = '600';
+        validationMessage.textContent = message;
+        
+        field.parentNode.appendChild(validationMessage);
+    }
+
+    function clearValidationMessage(field) {
+        const existingMessage = field.parentNode.querySelector('.validation-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Remove red border
+        field.style.borderColor = '#E5E5E5';
+    }
+
+    // Event Listeners
+    ridersInput.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value > 20) {
+            e.target.value = 20;
+            ridersError.style.display = 'block';
+        } else {
+            ridersError.style.display = 'none';
+        }
+        calculateAndUpdatePrice();
+        validateForm();
+        clearValidationMessage(e.target);
+    });
+
+    startDateInput.addEventListener('change', () => {
+        validateForm();
+        clearValidationMessage(startDateInput);
+    });
+    
+    timeInput.addEventListener('change', () => {
+        validateForm();
+        clearValidationMessage(timeInput);
+    });
+
+    addonCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            calculateAndUpdatePrice();
+            const addonItem = checkbox.closest('.addon-item');
+            if (checkbox.checked) {
+                triggerFloatyPrice(addonItem);
+            }
+        });
+    });
+
+    // Initial calculation and validation on page load
+    calculateAndUpdatePrice();
+    validateForm();
+
+    // Book Now button logic
+    if (!bookNowBtn) return;
+
+    bookNowBtn.addEventListener('click', function() {
+        // Validate form before proceeding
+        const ridersCount = parseInt(ridersInput.value) || 0;
+        const startDateValue = startDateInput.value;
+        const pickupTimeValue = timeInput.value;
+        
+        let hasErrors = false;
+        
+        // Check each field and show validation messages
+        if (!ridersCount || ridersCount < 1) {
+            showValidationMessage(ridersInput, 'Please enter the number of riders');
+            hasErrors = true;
+        }
+        
+        if (!startDateValue) {
+            showValidationMessage(startDateInput, 'Please select a start date');
+            hasErrors = true;
+        }
+        
+        if (!pickupTimeValue) {
+            showValidationMessage(timeInput, 'Please select a pickup time');
+            hasErrors = true;
+        }
+        
+        // If there are validation errors, don't proceed
+        if (hasErrors) {
+            return;
+        }
+        // Get tour name
+        var tourName = document.querySelector('.bike-title')?.textContent?.trim() || '';
+        // Get number of riders
+        var riders = ridersInput ? ridersInput.value : '';
+        // Get start date
+        var startDate = startDateInput ? startDateInput.value : '';
+        // Get pickup time
+        var pickupTime = timeInput ? timeInput.value : '';
+
+        // Get selected add-ons
+        var selectedAddons = [];
+        var addonCheckboxesChecked = document.querySelectorAll('.addon-item input[type="checkbox"]:checked');
+        addonCheckboxesChecked.forEach(function(checkbox) {
+            var addonItem = checkbox.closest('.addon-item');
+            var addonTitle = addonItem.querySelector('.addon-title').textContent.trim();
+            var addonPriceRaw = parseFloat(addonItem.dataset.price) || 0;
+            selectedAddons.push(`${addonTitle}|${addonPriceRaw}`);
+        });
+
+        // Get price details
+        const basePrice = parseFloat(bookingPanel.dataset.basePrice) || 0;
+        const finalPrice = priceDisplay.textContent;
+
+        // Build query string
+        var params = new URLSearchParams({
+            type: 'tour',
+            name: tourName,
+            riders: riders,
+            base_price: basePrice,
+            start_date: startDate,
+            pickup_time: pickupTime,
+            addons: selectedAddons.join(','),
+            final_price: finalPrice
+        });
+
+        // Redirect to checkout page with params
+        window.location.href = "{{ url_for('checkout') }}?" + params.toString();
+    });
+    
+    // Handle add-on selection visual feedback
+    var addonToggles = document.querySelectorAll('.addon-item input[type="checkbox"]');
+    addonToggles.forEach(function(toggle) {
+        toggle.addEventListener('change', function() {
+            var addonItem = this.closest('.addon-item');
+            if (this.checked) {
+                addonItem.classList.add('selected');
+            } else {
+                addonItem.classList.remove('selected');
+            }
+        });
+        
+        // Make the whole card clickable
+        var addonItem = toggle.closest('.addon-item');
+        addonItem.addEventListener('click', function(e) {
+            // Don't trigger if clicking on the toggle itself
+            if (e.target !== toggle && e.target !== toggle.nextElementSibling) {
+                toggle.checked = !toggle.checked;
+                toggle.dispatchEvent(new Event('change'));
+            }
+        });
+    });
+
+    // Inquiry button functionality
+    if (inquiryBtn) {
+        inquiryBtn.addEventListener('click', function() {
+            // Get tour name
+            var tourName = document.querySelector('.bike-title')?.textContent?.trim() || '';
+            // Get number of riders
+            var riders = ridersInput ? ridersInput.value : '';
+            // Get start date
+            var startDate = startDateInput ? startDateInput.value : '';
+            // Get pickup time
+            var pickupTime = timeInput ? timeInput.value : '';
+
+            // Get selected add-ons
+            var selectedAddons = [];
+            var addonCheckboxesChecked = document.querySelectorAll('.addon-item input[type="checkbox"]:checked');
+            addonCheckboxesChecked.forEach(function(checkbox) {
+                var addonItem = checkbox.closest('.addon-item');
+                var addonTitle = addonItem.querySelector('.addon-title').textContent.trim();
+                var addonPriceRaw = parseFloat(addonItem.dataset.price) || 0;
+                selectedAddons.push(`${addonTitle}|${addonPriceRaw}`);
+            });
+
+            // Build inquiry message
+            var inquiryMessage = `Hi, I'm interested in the ${tourName} tour. I have some questions:\n\n`;
+            inquiryMessage += `Tour Details:\n`;
+            inquiryMessage += `- Number of riders: ${riders}\n`;
+            inquiryMessage += `- Start date: ${startDate}\n`;
+            inquiryMessage += `- Pickup time: ${pickupTime}\n`;
+            
+            if (selectedAddons.length > 0) {
+                inquiryMessage += `- Selected add-ons: ${selectedAddons.map(addon => addon.split('|')[0]).join(', ')}\n`;
+            }
+            
+            inquiryMessage += `\nPlease let me know about availability, pricing, and any other details I should know.`;
+
+            // Build query string for contact form
+            var params = new URLSearchParams({
+                tour: tourName,
+                service: 'tours',
+                message: inquiryMessage
+            });
+
+            // Redirect to contact page with inquiry details
+            window.location.href = "{{ url_for('contact') }}?" + params.toString() + "#contact-form";
+        });
+    }
+});
+</script>
+{% endblock %} 

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Nischal Bastola",
+    "email": "nischalbastola00139@gmail.com",
+    "phone": "9814130208",
+    "service": "Online Booking",
+    "message": "NEW BOOKING: BIKE\n---\nItem: Ram KC\nTotal Price: NPR 4,500\n---\nRENTAL DETAILS:\nDuration: 1 days\nPickup Time: 09:00\nRiding: Alone\n---\nCUSTOMER:\nName: Nischal Bastola\nEmail: nischalbastola00139@gmail.com\nPhone: 9814130208",
+    "timestamp": "2025-07-13T01:02:00.450565",
+    "id": 1,
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "name": "Nischal Bastola",
+    "email": "nischalbastola00139@gmail.com",
+    "phone": "9814130208",
+    "service": "Online Booking",
+    "message": "NEW BOOKING: TOUR\n---\nItem: Annapurana\nTotal Price: NPR 8,000\n---\nTOUR DETAILS:\nNumber of Riders: 1\nStart Date: 2025-07-04\nPickup Time: 09:00\n---\nCUSTOMER:\nName: Nischal Bastola\nEmail: nischalbastola00139@gmail.com\nPhone: 9814130208",
+    "timestamp": "2025-07-13T01:02:17.569003",
+    "id": 2,
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "name": "Nischal Bastola",
+    "email": "nischalbastola00139@gmail.com",
+    "phone": "9814130208",
+    "service": "tours",
+    "message": "cawdvcawdvcawdvcawdv cawdv   cawdvcawdvcawdvcawdvcawdv cawdv   cawdv",
+    "timestamp": "2025-07-13T01:04:32.982294",
+    "id": 3,
+    "ip_address": "127.0.0.1"
+  }
+]

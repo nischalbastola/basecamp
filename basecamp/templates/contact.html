@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Bullet Basecamp Pokhara - Motorcycle Workshop Lakeside, Tours, Rentals{% endblock %}
+{% block description %}Contact Bullet Basecamp Pokhara. Located in Lakeside near Phewa Lake. Motorcycle repair, Royal Enfield tours, bike rental. Open daily in Pokhara Nepal. Visit our workshop today.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='videos/contact-hero.mp4') }}" type="video/mp4">
+        <!-- Fallback for browsers that don't support video -->
+    </video>
+    
+    <div class="hero-content">
+        <p class="hero-tagline">Connect With Us</p>
+        <h1 class="hero-title">Ready To Go? Get In Touch</h1>
+        <p class="body-text" style="color: #FFFFFF; font-size: 1.2rem; margin: 1.5rem 0;">
+            Ready to start your adventure? Contact us for tours, rentals, repairs, or any questions about our services.
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="#contact-form" class="btn-primary">Send Message</a>
+            <a href="tel:+15551234567" class="btn-secondary">Call Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Section -->
+<section class="content-section" style="background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);">
+    <div class="container">
+        <div style="text-align: center; color: #FFFFFF; margin-bottom: 4rem;">
+            <h2 class="section-title" style="color: #FFFFFF;">Contact Information</h2>
+        </div>
+        
+        <div class="category-grid">
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22S19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Visit Our Pokhara Workshop</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Lakeside Road, Ward No. 6<br>
+                    Baidam, Pokhara 33700<br>
+                    Kaski District, Nepal<br>
+                    Near Phewa Lake & Tourist Area
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Call Pokhara Workshop</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Phone: <a href="tel:+977-9841234567" style="color: #FF6B35;">+977-984-123-4567</a><br>
+                    WhatsApp: <a href="https://wa.me/9779841234567" style="color: #FF6B35;">+977-984-123-4567</a><br>
+                    24/7 Emergency Breakdown Service Pokhara
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Email Pokhara Team</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    General: <a href="mailto:info@bulletbasecamppokhara.com" style="color: #FF6B35;">info@bulletbasecamppokhara.com</a><br>
+                    Tours: <a href="mailto:tours@bulletbasecamppokhara.com" style="color: #FF6B35;">tours@bulletbasecamppokhara.com</a><br>
+                    Repair: <a href="mailto:workshop@bulletbasecamppokhara.com" style="color: #FF6B35;">workshop@bulletbasecamppokhara.com</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="content-section" id="contact-form">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">Send Us a Message</h2>
+            
+            <form id="contact-form" method="POST" action="{{ url_for('contact') }}">
+                {{ form.hidden_tag() }}
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="form-group">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-input", id="name") }}
+                        {% if form.name.errors %}
+                            <div style="color: #FF6B35; font-size: 0.875rem; margin-top: 0.25rem;">
+                                {% for error in form.name.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-input", id="email") }}
+                        {% if form.email.errors %}
+                            <div style="color: #FF6B35; font-size: 0.875rem; margin-top: 0.25rem;">
+                                {% for error in form.email.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="form-group">
+                        {{ form.phone.label(class="form-label") }}
+                        {{ form.phone(class="form-input", id="phone") }}
+                        {% if form.phone.errors %}
+                            <div style="color: #FF6B35; font-size: 0.875rem; margin-top: 0.25rem;">
+                                {% for error in form.phone.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.service.label(class="form-label") }}
+                        {{ form.service(class="form-select", id="service") }}
+                        {% if form.service.errors %}
+                            <div style="color: #FF6B35; font-size: 0.875rem; margin-top: 0.25rem;">
+                                {% for error in form.service.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    {{ form.message.label(class="form-label") }}
+                    {{ form.message(class="form-textarea", id="message", placeholder="Tell us about your adventure plans, service needs, or any questions you have...") }}
+                    {% if form.message.errors %}
+                        <div style="color: #FF6B35; font-size: 0.875rem; margin-top: 0.25rem;">
+                            {% for error in form.message.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn-primary" style="padding: 1rem 3rem;">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get URL parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var messageTextarea = document.getElementById('message');
+    
+    // Check if inquiry parameters are present
+    if (urlParams.get('message') && messageTextarea) {
+        // Set the pre-filled message
+        messageTextarea.value = urlParams.get('message');
+        
+        // Auto-select service if provided
+        var serviceSelect = document.getElementById('service');
+        if (serviceSelect && urlParams.get('service')) {
+            serviceSelect.value = urlParams.get('service');
+        }
+        
+        // Focus on the message textarea for additional input
+        messageTextarea.focus();
+        var len = messageTextarea.value.length;
+        messageTextarea.setSelectionRange(len, len);
+    }
+    // Check if booking parameters are present (legacy support)
+    else if (urlParams.get('bike') && messageTextarea) {
+        var bikeName = urlParams.get('bike');
+        var bookingDetails = [];
+        
+        // Build booking message
+        bookingDetails.push(`Hi I'm interested in renting the ${bikeName} bike, my requirements are down below!`);
+        bookingDetails.push('');
+        bookingDetails.push('-------------------------------------');
+        bookingDetails.push('BOOKING DETAILS');
+        bookingDetails.push('-------------------------------------');
+        
+        if (urlParams.get('bike')) {
+            bookingDetails.push('BIKE: ' + urlParams.get('bike'));
+        }
+        
+        if (urlParams.get('rental_dates')) {
+            bookingDetails.push('DATES: ' + urlParams.get('rental_dates'));
+        }
+        
+        if (urlParams.get('pickup_time')) {
+            bookingDetails.push('PICKUP: ' + urlParams.get('pickup_time'));
+        }
+        
+        if (urlParams.get('dropoff_time')) {
+            bookingDetails.push('DROPOFF: ' + urlParams.get('dropoff_time'));
+        }
+        
+        if (urlParams.get('riding_type')) {
+            bookingDetails.push('RIDING: ' + urlParams.get('riding_type'));
+        }
+        
+        if (urlParams.get('addons') && urlParams.get('addons').trim() !== '') {
+            bookingDetails.push('');
+            bookingDetails.push('ADD-ONS:');
+            var addons = urlParams.get('addons').split(', ');
+            addons.forEach(function(addon) {
+                if (addon.trim()) {
+                    bookingDetails.push('• ' + addon);
+                }
+            });
+        }
+        
+        bookingDetails.push('-------------------------------------');
+        bookingDetails.push('');
+        bookingDetails.push('ADDITIONAL MESSAGE:');
+        bookingDetails.push('');
+        
+        // Set the message textarea value
+        messageTextarea.value = bookingDetails.join('\n');
+        
+        // Auto-select "Rentals" service if not already selected
+        var serviceSelect = document.getElementById('service');
+        if (serviceSelect && !serviceSelect.value) {
+            serviceSelect.value = 'Rentals';
+        }
+        
+        // Focus on the message textarea for additional input
+        messageTextarea.focus();
+        var len = messageTextarea.value.length;
+        messageTextarea.setSelectionRange(len, len);
+    }
+});
+</script>
+
+<!-- Business Hours & Additional Info -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Visit Our Workshop</h2>
+        
+        <div class="category-grid">
+            <div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Business Hours</h3>
+                <div style="background: #FFFFFF; padding: 1.5rem; border-radius: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span class="body-text"><strong>Monday - Friday</strong></span>
+                        <span class="body-text">8:00 AM - 6:00 PM</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span class="body-text"><strong>Saturday</strong></span>
+                        <span class="body-text">9:00 AM - 5:00 PM</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span class="body-text"><strong>Sunday</strong></span>
+                        <span class="body-text">10:00 AM - 4:00 PM</span>
+                    </div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E0E0E0;">
+                        <span class="body-text" style="color: #FF6B35;"><strong>Emergency Service Available 24/7</strong></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">What to Expect</h3>
+                <div style="background: #FFFFFF; padding: 1.5rem; border-radius: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <ul style="margin: 0; padding-left: 1.5rem;">
+                        <li class="body-text" style="margin-bottom: 0.75rem;">Free parking available on-site</li>
+                        <li class="body-text" style="margin-bottom: 0.75rem;">Customer lounge with refreshments</li>
+                        <li class="body-text" style="margin-bottom: 0.75rem;">Free estimates for all services</li>
+                        <li class="body-text" style="margin-bottom: 0.75rem;">Multilingual staff available</li>
+                        <li class="body-text" style="margin-bottom: 0.75rem;">Royal Enfield merchandise shop</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Getting Here</h3>
+                <div style="background: #FFFFFF; padding: 1.5rem; border-radius: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <p class="body-text" style="margin-bottom: 1rem;">
+                        Located in the heart of Mountain View, easily accessible by car or public transport.
+                    </p>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong>By Car:</strong> Exit 394 from Highway 101
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong>By Transit:</strong> Caltrain Mountain View Station (10 min walk)
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Parking:</strong> Free customer parking available
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" class="btn-secondary" style="color: #000000; border-color: #000000; padding: 0.5rem 1rem; font-size: 0.9rem;">Get Directions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tour = urlParams.get('tour');
+    const bike = urlParams.get('bike');
+    const rental_dates = urlParams.get('rental_dates');
+    const pickup_time = urlParams.get('pickup_time');
+    const dropoff_time = urlParams.get('dropoff_time');
+    const riding_type = urlParams.get('riding_type');
+    const service = urlParams.get('service');
+    const messageField = document.getElementById('message');
+    const serviceField = document.getElementById('service');
+
+    // Auto-fill service category based on URL parameters or referrer
+    if (tour) {
+        if (serviceField) serviceField.value = 'tours';
+        if (messageField && messageField.value === '') {
+            messageField.value = `Hi, I'm interested in booking the "${tour}" tour. Could you please provide more information about availability and pricing?`;
+        }
+    } else if (bike) {
+        if (serviceField) serviceField.value = 'rentals';
+        if (messageField && messageField.value === '') {
+            let msg = `Hi, I'm interested in renting the "${bike}".`;
+            if (rental_dates || pickup_time || dropoff_time || riding_type) {
+                msg += "\n\nBooking Details:";
+                if (rental_dates) msg += `\nRental Dates: ${rental_dates}`;
+                if (pickup_time) msg += `\nPickup Time: ${pickup_time}`;
+                if (dropoff_time) msg += `\nDropoff Time: ${dropoff_time}`;
+                if (riding_type) msg += `\nRiding Type: ${riding_type}`;
+            }
+            msg += "\nCould you please let me know about availability and rental terms?";
+            messageField.value = msg;
+        }
+    } else if (service) {
+        if (serviceField) serviceField.value = service;
+        if (service === 'repairs' && messageField && messageField.value === '') {
+            messageField.value = `Hi, I need motorcycle repair service. Could you please provide information about your services and pricing?`;
+        }
+    } else if (document.referrer) {
+        const referrer = document.referrer.toLowerCase();
+        if (referrer.includes('/repairs') || referrer.includes('repair')) {
+            if (serviceField) serviceField.value = 'repairs';
+            if (messageField && messageField.value === '') {
+                messageField.value = `Hi, I need motorcycle repair service. Could you please provide information about your services and pricing?`;
+            }
+        } else if (referrer.includes('/tours') || referrer.includes('tour')) {
+            if (serviceField) serviceField.value = 'tours';
+            if (messageField && messageField.value === '') {
+                messageField.value = `Hi, I'm interested in your motorcycle tours. Could you please provide more information about availability and pricing?`;
+            }
+        } else if (referrer.includes('/rentals') || referrer.includes('rental')) {
+            if (serviceField) serviceField.value = 'rentals';
+            if (messageField && messageField.value === '') {
+                messageField.value = `Hi, I'm interested in renting a motorcycle. Could you please provide information about availability and rental terms?`;
+            }
+        }
+    }
+});
+</script>
+{% endblock %} 

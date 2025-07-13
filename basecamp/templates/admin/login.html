@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - Bullet Basecamp{% endblock %}
+
+{% block content %}
+<section class="admin-login-section">
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <div class="admin-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h1 class="admin-login-title">Admin Access</h1>
+                <p class="admin-login-subtitle">Bullet Basecamp Management</p>
+            </div>
+            
+            <form method="POST" class="admin-login-form" id="loginForm">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label class="admin-label">Username</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        {{ form.username(placeholder="Enter your username", class="admin-input", autocomplete="username") }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="admin-label">Password</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        {{ form.password(placeholder="Enter your password", class="admin-input", autocomplete="current-password") }}
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg class="eye-closed" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="security-notice">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C14.8,12.6 13.9,13.5 12.8,13.5H11.2C10.1,13.5 9.2,12.6 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.4,8.7 10.4,10V11.5C10.4,11.8 10.7,12.3 11.2,12.3H12.8C13.3,12.3 13.6,11.8 13.6,11.5V10C13.6,8.7 12.8,8.2 12,8.2Z" fill="currentColor"/>
+                    </svg>
+                    Your session is secured with enterprise-level encryption.
+                </div>
+                
+                <button type="submit" class="admin-btn-primary" id="loginButton">
+                    <span class="btn-text">Access Dashboard</span>
+                    <span class="btn-loader" style="display: none;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="15 5" stroke-dashoffset="0">
+                                <animateTransform attributeName="transform" type="rotate" values="0 12 12;360 12 12" dur="1s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                        Authenticating...
+                    </span>
+                </button>
+            </form>
+            
+            <div class="admin-login-footer">
+                <a href="{{ url_for('home') }}" class="back-to-site">← Back to Website</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.admin-login-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.admin-login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.admin-login-card {
+    background: #FFFFFF;
+    border-radius: 0;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.admin-login-header {
+    background: #FF6B35;
+    color: #FFFFFF;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+}
+
+.admin-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.admin-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.admin-login-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+}
+
+.admin-login-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.admin-login-form {
+    padding: 2.5rem 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.admin-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    width: 18px;
+    height: 18px;
+    color: #666666;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.admin-input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 3rem;
+    border: 2px solid #E5E5E5;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.admin-input[name="username"] {
+    padding: 1rem 1rem 1rem 3rem;
+}
+
+.admin-input:focus {
+    outline: none;
+    border-color: #FF6B35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.admin-input:focus + .input-icon {
+    color: #FF6B35;
+}
+
+.admin-input::placeholder {
+    color: #999999;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.password-toggle:hover {
+    background: rgba(255, 107, 53, 0.1);
+}
+
+.password-toggle svg {
+    width: 18px;
+    height: 18px;
+    color: #666666;
+}
+
+.password-toggle:hover svg {
+    color: #FF6B35;
+}
+
+.security-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%);
+    border: 1px solid #BBF7D0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: #16A34A;
+    font-weight: 500;
+}
+
+.security-notice svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.admin-btn-primary {
+    width: 100%;
+    background: #FF6B35;
+    color: #FFFFFF;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.admin-btn-primary:hover:not(:disabled) {
+    background: #E55A2B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.admin-btn-primary:active:not(:disabled) {
+    background: #CC4E21;
+    transform: translateY(0);
+}
+
+.admin-btn-primary:disabled {
+    background: #999999;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-loader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-loader svg {
+    width: 18px;
+    height: 18px;
+}
+
+.admin-login-footer {
+    padding: 1.5rem 2rem;
+    background: #F8F8F8;
+    text-align: center;
+    border-top: 1px solid #E5E5E5;
+}
+
+.back-to-site {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-to-site:hover {
+    color: #FF6B35;
+}
+
+.flash-messages {
+    padding: 0 2rem;
+    margin-top: -1rem;
+}
+
+.flash-message {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.flash-error {
+    background: #FEE;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+}
+
+.flash-success {
+    background: #F0FDF4;
+    color: #16A34A;
+    border: 1px solid #BBF7D0;
+}
+
+.flash-info {
+    background: #EFF6FF;
+    color: #2563EB;
+    border: 1px solid #BFDBFE;
+}
+
+@media (max-width: 768px) {
+    .admin-login-section {
+        padding: 1rem;
+    }
+    
+    .admin-login-header {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+    
+    .admin-login-form {
+        padding: 2rem 1.5rem;
+    }
+    
+    .admin-login-footer {
+        padding: 1.5rem;
+    }
+    
+    .admin-input {
+        padding: 1rem 3.5rem 1rem 3rem;
+    }
+    
+    .security-notice {
+        font-size: 0.8rem;
+        padding: 0.875rem;
+    }
+}
+</style>
+
+<script>
+function togglePassword() {
+    const passwordInput = document.querySelector('input[name="password"]');
+    const eyeOpen = document.querySelector('.eye-open');
+    const eyeClosed = document.querySelector('.eye-closed');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeOpen.style.display = 'none';
+        eyeClosed.style.display = 'block';
+    } else {
+        passwordInput.type = 'password';
+        eyeOpen.style.display = 'block';
+        eyeClosed.style.display = 'none';
+    }
+}
+
+// Enhanced form submission with loading state
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const button = document.getElementById('loginButton');
+    const btnText = button.querySelector('.btn-text');
+    const btnLoader = button.querySelector('.btn-loader');
+    
+    // Show loading state
+    button.disabled = true;
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'flex';
+    
+    // Add a small delay to show the loading animation
+    setTimeout(() => {
+        // The form will submit naturally after this timeout
+    }, 200);
+});
+
+// Focus enhancement for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    const usernameInput = document.querySelector('input[name="username"]');
+    if (usernameInput) {
+        usernameInput.focus();
+    }
+    
+    // Add enhanced focus states
+    const inputs = document.querySelectorAll('.admin-input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.closest('.input-wrapper').style.transform = 'translateY(-2px)';
+            this.closest('.input-wrapper').style.boxShadow = '0 4px 12px rgba(255, 107, 53, 0.1)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.closest('.input-wrapper').style.transform = 'translateY(0)';
+            this.closest('.input-wrapper').style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+{% endblock %} 

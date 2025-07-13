@@ -1,0 +1,501 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Rentals - Admin{% endblock %}
+
+{% block content %}
+<section class="admin-page">
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <div class="admin-header-content">
+                <a href="{{ url_for('admin_dashboard') }}" class="back-arrow-link">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5"></path>
+                        <path d="M12 19l-7-7 7-7"></path>
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="admin-title">Manage Rentals</h1>
+                    <p class="admin-subtitle">Add, edit, and manage rental bikes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add New Rental Form -->
+        <div class="admin-section">
+            <h2 class="section-title">Add New Rental Bike</h2>
+            <form method="POST" action="{{ url_for('admin_add_rental') }}" class="admin-form" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Bike Name</label>
+                        <input type="text" id="name" name="name" required class="admin-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" name="category" required class="admin-input" placeholder="e.g., Cruiser, Adventure">
+                    </div>
+                    <div class="form-group">
+                        <label for="price_per_day">Price Per Day</label>
+                        <input type="text" id="price_per_day" name="price_per_day" required class="admin-input" placeholder="e.g., NPR 4,500">
+                    </div>
+                    <div class="form-group">
+                        <label for="price_per_week">Price Per Week</label>
+                        <input type="text" id="price_per_week" name="price_per_week" required class="admin-input" placeholder="e.g., NPR 28,000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required class="admin-textarea" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Bike Image</label>
+                    <input type="file" id="image" name="image" class="admin-input" accept=".png,.jpg,.jpeg,.gif,.webp">
+                    <small class="file-help">Upload PNG, JPG, JPEG, GIF, or WEBP images. Max size: 16MB</small>
+                </div>
+                <div class="specs-section">
+                    <h3>Specifications</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="engine">Engine</label>
+                            <input type="text" id="engine" name="engine" required class="admin-input" placeholder="e.g., 349cc Single Cylinder">
+                        </div>
+                        <div class="form-group">
+                            <label for="power">Power</label>
+                            <input type="text" id="power" name="power" required class="admin-input" placeholder="e.g., 20.2 HP">
+                        </div>
+                        <div class="form-group">
+                            <label for="torque">Torque</label>
+                            <input type="text" id="torque" name="torque" required class="admin-input" placeholder="e.g., 27 Nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="fuel_capacity">Fuel Capacity</label>
+                            <input type="text" id="fuel_capacity" name="fuel_capacity" required class="admin-input" placeholder="e.g., 13.5L">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="available" checked> Available for rent
+                    </label>
+                </div>
+                <button type="submit" class="admin-btn-primary">Add Rental Bike</button>
+            </form>
+        </div>
+
+        <!-- Existing Rentals -->
+        <div class="admin-section">
+            <h2 class="section-title">Existing Rental Bikes ({{ rentals|length }})</h2>
+            {% if rentals %}
+                <div class="rentals-list">
+                    {% for rental in rentals %}
+                    <div class="rental-item">
+                        <div class="rental-info">
+                            <div class="rental-header">
+                                <h3 class="rental-name">{{ rental.name }}</h3>
+                                <span class="availability-badge {% if rental.available %}available{% else %}unavailable{% endif %}">
+                                    {% if rental.available %}Available{% else %}Rented{% endif %}
+                                </span>
+                            </div>
+                            <div class="rental-meta">
+                                <span class="rental-category">{{ rental.category }}</span>
+                                <span class="rental-price">{{ rental.price_per_day }}/day</span>
+                                <span class="rental-price">{{ rental.price_per_week }}/week</span>
+                            </div>
+                            <p class="rental-description">{{ rental.description[:150] }}{% if rental.description|length > 150 %}...{% endif %}</p>
+                            <div class="rental-specs">
+                                <strong>Specs:</strong>
+                                {{ rental.specs.engine }} • {{ rental.specs.power }} • {{ rental.specs.torque }}
+                            </div>
+                        </div>
+                        <div class="rental-actions">
+                            <a href="{{ url_for('admin_edit_rental', rental_id=rental.id) }}" class="admin-btn-secondary">Edit</a>
+                            <form method="POST" action="{{ url_for('admin_delete_rental', rental_id=rental.id) }}" class="delete-form" data-item-type="Rental Bike" data-item-name="{{ rental.name }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="admin-btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No rental bikes found. Add your first bike above!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+.admin-page {
+    background: #F8F8F8;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.admin-header {
+    background: #FFFFFF;
+    border-radius: 0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admin-header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-arrow-link {
+    color: #ff6b35;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.back-arrow-link:hover {
+    background-color: rgba(255, 107, 53, 0.1);
+}
+
+.admin-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+}
+
+.admin-subtitle {
+    color: #666666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.admin-section {
+    background: #FFFFFF;
+    border-radius: 0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 0 2rem;
+}
+
+.admin-form {
+    max-width: 800px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.admin-input,
+.admin-textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #E5E5E5;
+    border-radius: 0;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.admin-input:focus,
+.admin-textarea:focus {
+    outline: none;
+    border-color: #FF6B35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.admin-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.specs-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #F8F8F8;
+    border-left: 4px solid #FF6B35;
+}
+
+.specs-section h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0 0 1rem;
+}
+
+.checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto !important;
+    margin: 0 !important;
+}
+
+.admin-btn-primary {
+    background: #FF6B35;
+    color: #FFFFFF;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.admin-btn-primary:hover {
+    background: #E55A2B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.admin-btn-secondary {
+    background: transparent;
+    color: #FF6B35;
+    border: 2px solid #FF6B35;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.admin-btn-secondary:hover {
+    background: #FF6B35;
+    color: #FFFFFF;
+}
+
+.admin-btn-danger {
+    background: #DC2626;
+    color: #FFFFFF;
+    border: 2px solid #DC2626;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.admin-btn-danger:hover {
+    background: #991B1B;
+    border-color: #991B1B;
+}
+
+.rentals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rental-item {
+    border: 2px solid #E5E5E5;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    transition: all 0.3s ease;
+}
+
+.rental-item:hover {
+    border-color: #FF6B35;
+    background: #FEFEFE;
+}
+
+.rental-info {
+    flex: 1;
+}
+
+.rental-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.rental-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+}
+
+.availability-badge {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.availability-badge.available {
+    background: #22C55E;
+}
+
+.availability-badge.unavailable {
+    background: #DC2626;
+}
+
+.rental-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.rental-category,
+.rental-price {
+    background: #F8F8F8;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666666;
+}
+
+.rental-description {
+    color: #666666;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.rental-specs {
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.rental-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.delete-form {
+    margin: 0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #666666;
+}
+
+.flash-messages {
+    margin-bottom: 2rem;
+}
+
+.flash-message {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0;
+    font-weight: 500;
+}
+
+.flash-error {
+    background: #FEE;
+    color: #DC2626;
+    border-left: 4px solid #DC2626;
+}
+
+.flash-success {
+    background: #F0FDF4;
+    color: #16A34A;
+    border-left: 4px solid #16A34A;
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 0 1rem;
+    }
+    
+    .admin-header,
+    .admin-section {
+        padding: 1.5rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rental-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .rental-actions {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    
+    .rental-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .rental-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+</style>
+{% endblock %} 

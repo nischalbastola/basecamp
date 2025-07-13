@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Bullet Basecamp{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <div class="admin-header-content">
+                <h1 class="admin-title">Welcome, Mr. Rohan Chhetri.</h1>
+                <p class="admin-subtitle">Manage your Bullet Basecamp business</p>
+            </div>
+            <div class="admin-header-actions">
+                <a href="{{ url_for('home') }}" class="admin-btn-secondary">View Website</a>
+                <a href="#" onclick="confirmLogout(event)" class="admin-btn-danger">Logout</a>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon tours-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 17h14v2H5v-2zm7-12L9 8h2.5v4h1V8H15l-3-3z"/>
+                        <path d="M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ stats.tours }}</h3>
+                    <p class="stat-label">Tours</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon rentals-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ stats.rentals }}</h3>
+                    <p class="stat-label">Rental Bikes</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon messages-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ stats.inquiries }}</h3>
+                    <p class="stat-label">Messages</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon staff-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9C15 10.66 13.66 12 12 12S9 10.66 9 12V9L3 7V9C3 10.66 4.34 12 6 12H8V22H10V16H14V22H16V12H18C19.66 12 21 10.66 21 9Z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">{{ stats.staff }}</h3>
+                    <p class="stat-label">Staff Members</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="admin-section">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="{{ url_for('admin_tours') }}" class="action-card">
+                    <div class="action-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 17h14v2H5v-2zm7-12L9 8h2.5v4h1V8H15l-3-3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="action-title">Manage Tours</h3>
+                    <p class="action-description">Add, edit, and remove motorcycle tours</p>
+                </a>
+
+                <a href="{{ url_for('admin_rentals') }}" class="action-card">
+                    <div class="action-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="action-title">Manage Rentals</h3>
+                    <p class="action-description">Add, edit, and manage rental bikes</p>
+                </a>
+
+                <a href="{{ url_for('admin_messages') }}" class="action-card">
+                    <div class="action-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="action-title">View Messages</h3>
+                    <p class="action-description">Check customer inquiries and bookings</p>
+                </a>
+
+                <a href="{{ url_for('admin_staff') }}" class="action-card">
+                    <div class="action-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9C15 10.66 13.66 12 12 12S9 10.66 9 12V9L3 7V9C3 10.66 4.34 12 6 12H8V22H10V16H14V22H16V12H18C19.66 12 21 10.66 21 9Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="action-title">Manage Staff</h3>
+                    <p class="action-description">Add and remove staff accounts</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.admin-dashboard {
+    background: #F8F8F8;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.admin-header {
+    background: #FFFFFF;
+    border-radius: 0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admin-header-content h1.admin-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+}
+
+.admin-subtitle {
+    color: #666666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.admin-header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.admin-btn-secondary {
+    background: transparent;
+    color: #FF6B35;
+    border: 2px solid #FF6B35;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.admin-btn-secondary:hover {
+    background: #FF6B35;
+    color: #FFFFFF;
+}
+
+.admin-btn-danger {
+    background: #DC2626;
+    color: #FFFFFF;
+    border: 2px solid #DC2626;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.admin-btn-danger:hover {
+    background: #991B1B;
+    border-color: #991B1B;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tours-icon { background: rgba(255, 107, 53, 0.1); color: #FF6B35; }
+.rentals-icon { background: rgba(30, 58, 138, 0.1); color: #1E3A8A; }
+.messages-icon { background: rgba(34, 197, 94, 0.1); color: #22C55E; }
+.staff-icon { background: rgba(168, 85, 247, 0.1); color: #A855F7; }
+
+.stat-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+.stat-content h3.stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #000000;
+    margin: 0 0 0.25rem;
+    line-height: 1;
+}
+
+.stat-label {
+    color: #666666;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.admin-section {
+    background: #FFFFFF;
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 0 2rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-card {
+    background: #F8F8F8;
+    padding: 2rem;
+    border-radius: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.action-card:hover {
+    background: #FFFFFF;
+    border-color: #FF6B35;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.action-icon {
+    width: 50px;
+    height: 50px;
+    background: #FF6B35;
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.action-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.action-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+}
+
+.action-description {
+    color: #666666;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.flash-messages {
+    margin-bottom: 2rem;
+}
+
+.flash-message {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0;
+    font-weight: 500;
+}
+
+.flash-error {
+    background: #FEE;
+    color: #DC2626;
+    border-left: 4px solid #DC2626;
+}
+
+.flash-success {
+    background: #F0FDF4;
+    color: #16A34A;
+    border-left: 4px solid #16A34A;
+}
+
+.flash-info {
+    background: #EFF6FF;
+    color: #2563EB;
+    border-left: 4px solid #2563EB;
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 0 1rem;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .admin-header-actions {
+        justify-content: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+    }
+    
+    .admin-section {
+        padding: 1.5rem;
+    }
+}
+</style>
+{% endblock %} 

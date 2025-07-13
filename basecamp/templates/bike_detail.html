@@ -1,0 +1,1194 @@
+{% extends "base.html" %}
+
+{% block title %}{{ bike.name }} - Royal Enfield Rental in Pokhara - Bullet Basecamp{% endblock %}
+{% block description %}Rent {{ bike.name }} in Pokhara Lakeside. {{ bike.description }} Daily and weekly rental rates available. Insurance included.{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Layout Like Riderly -->
+<section class="content-section" style="padding-top: 6rem; background: #F8F8F8;">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <!--
+        <div style="margin-bottom: 2rem;">
+            <p class="body-text" style="color: #666; font-size: 0.9rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: text-bottom; margin-right: 0.5rem;">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                Bullet Basecamp, Lakeside, Pokhara
+            </p>
+        </div>
+        -->
+
+        <!-- Main Hero Layout -->
+        <div class="bike-detail-hero">
+            <!-- Left Side - Image (MOVED UP FOR MOBILE) -->
+            <div class="bike-image-section">
+                <div class="bike-main-image">
+                    <img src="{{ url_for('static', filename=get_image_path(bike.image)) }}" alt="{{ bike.name }}" class="main-bike-img">
+                    <div class="bike-location" style="display: flex; align-items: center; justify-content: center; margin-top: 0.75rem; gap: 0.5rem; font-size: 1rem; color: #444; font-weight: 500;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF6B35" style="vertical-align: middle; margin-right: 0.25rem;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Bullet Basecamp, Lakeside, Pokhara
+                    </div>
+                    {% if bike.available %}
+                        <span class="availability-badge available">Available</span>
+                    {% else %}
+                        <span class="availability-badge rented">Rented</span>
+                    {% endif %}
+                </div>
+                <div>
+                    <h1 class="bike-title">{{ bike.name }}</h1>
+                    <div class="bike-category">{{ bike.category if bike.category else 'ROYAL ENFIELD' }}</div>
+                </div>
+                <div class="bike-specs">
+                    <div class="spec-item">
+                        <span class="spec-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L13.09 8.26L22 9L15.5 12L17 18.74L12 16L7 18.74L8.5 12L2 9L10.91 8.26L12 2Z"/>
+                            </svg>
+                        </span>
+                        <span class="spec-value">{{ bike.specs.engine or '350cc' }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11,4H13V16L18.5,21.5L17.08,22.92L12,17.84L6.92,22.92L5.5,21.5L11,16V4M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/>
+                            </svg>
+                        </span>
+                        <span class="spec-value">{{ bike.specs.power or '20 HP' }}</span>
+                    </div>
+                </div>
+                <p class="body-text" style="margin-top: 1.5rem; color: #333;">{{ bike.description }}</p>
+            </div>
+            <!-- Right Side - Booking Panel -->
+            <div class="booking-panel" data-base-price="{{ bike.price_per_day.replace('NPR ', '').replace(',', '') }}">
+                <div class="rental-info">
+                    <div id="price-display-container">
+                        <div class="price-original-struck"></div>
+                        <div class="price-final">
+                            <span class="rental-price">{{ bike.price_per_day }}</span>
+                            <span class="price-period">/day</span>
+                        </div>
+                        <div class="discount-tag"></div>
+                    </div>
+                </div>
+                <div class="booking-form">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: text-bottom; margin-right: 0.5rem;">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                </svg>
+                                NUMBER OF DAYS
+                            </label>
+                            <input type="number" class="days-input" min="1" max="99" value="1" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 2px solid #E5E5E5; border-radius: 4px; font-family: 'Inter', sans-serif; background: #FFFFFF;">
+                            <div class="days-error" style="color: #dc3545; font-size: 0.9rem; margin-top: 0.5rem; display: none;">Sorry, limit is 99 days.</div>
+                            <div class="discount-info">
+                                3+ days: 5% off<br>
+                                7+ days: 10% off<br>
+                                14+ days: 15% off
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pickup-dropoff">
+                        <div class="time-select">
+                            <label>PICKUP TIME</label>
+                            <select class="time-input">
+                                <option value="09:00">9:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: text-bottom; margin-right: 0.5rem;">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                            HOW ARE YOU RIDING?
+                        </label>
+                        <select class="riding-select">
+                            <option>Alone</option>
+                            <option>With Partner</option>
+                            <option>Group Ride</option>
+                        </select>
+                    </div>
+                    {% if bike.available %}
+                        <button type="button" class="book-now-btn" id="book-now-btn">BOOK NOW</button>
+                    {% else %}
+                        <button class="book-now-btn unavailable" disabled>CURRENTLY UNAVAILABLE</button>
+                    {% endif %}
+                    <button type="button" class="inquiry-btn" id="inquiry-btn">INQUIRY</button>
+                    <div class="booking-guarantee">
+                        Best price <strong>guaranteed.</strong>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Bike Title and Category -->
+        <!--
+        <div style="margin-top: 3rem;">
+            <h1 class="bike-title">{{ bike.name }}</h1>
+            <div class="bike-category">{{ bike.category if bike.category else 'ROYAL ENFIELD' }}</div>
+        </div>
+
+        <!-- Technical Specs -->
+        <!--
+        <div class="bike-specs">
+            <div class="spec-item">
+                <span class="spec-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L13.09 8.26L22 9L15.5 12L17 18.74L12 16L7 18.74L8.5 12L2 9L10.91 8.26L12 2Z"/>
+                    </svg>
+                </span>
+                <span class="spec-value">{{ bike.specs.engine or '350cc' }}</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11,4H13V16L18.5,21.5L17.08,22.92L12,17.84L6.92,22.92L5.5,21.5L11,16V4M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/>
+                    </svg>
+                </span>
+                <span class="spec-value">{{ bike.specs.power or '20 HP' }}</span>
+            </div>
+        </div>
+        -->
+    </div>
+</section>
+
+<!-- Included in the Price -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title">Included in the Price</h2>
+        <p class="section-subtitle">EVERYONE LOVES FREE STUFF!</p>
+        
+        <div class="included-grid">
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.1 16,12.7V16.2C16,16.8 15.4,17.3 14.8,17.3H9.2C8.6,17.3 8,16.8 8,16.2V12.7C8,12.1 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Accident Insurance</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Liability Insurance</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Bike Lock</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17,6H22V8H21V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V8H2V6H7A2,2 0 0,1 9,4H15A2,2 0 0,1 17,6M9,8V6H15V8H9M5,8V19H19V8H5Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Panniers</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21C5,22.11 5.89,23 7,23H17C18.11,23 19,22.11 19,21V3C19,1.89 18.11,1 17,1Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Phone Holder</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2L13.09,8.26L22,9L15.5,12L17,18.74L12,16L7,18.74L8.5,12L2,9L10.91,8.26L12,2Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Top Box</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11,7H13V13H11V7M11,15H13V17H11V15Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Windshield</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+            <div class="included-item">
+                <div class="included-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.7,19L13.6,9.9C14.5,7.6 14,4.9 12.1,3C10.1,1 7.1,0.6 4.7,1.7L9,6L6,9L1.6,4.7C0.4,7.1 0.9,10.1 2.9,12.1C4.8,14 7.5,14.5 9.8,13.6L18.9,22.7C19.3,23.1 19.9,23.1 20.3,22.7L22.6,20.4C23.1,20 23.1,19.3 22.7,19Z"/>
+                    </svg>
+                </div>
+                <div class="included-content">
+                    <div class="included-title">Basic Toolkit</div>
+                    <div class="included-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#28a745" style="margin-right: 0.5rem;">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
+                        Free
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Available Add-ons -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container">
+        <h2 class="section-title">Available Add-ons</h2>
+        <p class="section-subtitle">NEED A LITTLE EXTRA?</p>
+        
+        <div class="addons-grid">
+            <div class="addon-item" data-price="500">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11,4A4,4 0 0,0 7,8V9H6V16H18V9H17V8A4,4 0 0,0 13,4H11M11,6H13A2,2 0 0,1 15,8V9H9V8A2,2 0 0,1 11,6M2,20C2,21.11 2.9,22 4,22H20C21.11,22 22,21.11 22,20V18H2V20Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Highway Permit</div>
+                    <div class="addon-price">+ NPR 500 <span>/day</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-highway-permit">
+                    <label for="addon-highway-permit" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="300">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.5,3C19.33,3 20,3.67 20,4.5V20.5C20,21.33 19.33,22 18.5,22H5.5C4.67,22 4,21.33 4,20.5V4.5C4,3.67 4.67,3 5.5,3H18.5M7,6H6V7H7V6M7,9H6V10H7V9M7,12H6V13H7V12M7,15H6V16H7V15M7,18H6V19H7V18M18,6H17V7H18V6M18,9H17V10H18V9M18,12H17V13H18V12M18,15H17V16H18V15M18,18H17V19H18V18Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Riding Boots</div>
+                    <div class="addon-price">+ NPR 300 <span>/day</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-riding-boots">
+                    <label for="addon-riding-boots" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="200">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.15,9.3C19.75,8.29 20,7.11 20,5.86C20,5.33 19.75,4.83 19.31,4.5C17.8,3.17 15.04,3.95 12,7C8.96,3.95 6.2,3.17 4.69,4.5C4.25,4.83 4,5.33 4,5.86C4,7.11 4.25,8.29 4.85,9.3C3.17,10.45 2,12.58 2,15A7,7 0 0,0 9,22H15A7,7 0 0,0 22,15C22,12.58 20.83,10.45 19.15,9.3Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Gloves</div>
+                    <div class="addon-price">+ NPR 200 <span>/day</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-gloves">
+                    <label for="addon-gloves" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="400">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H20A6,6 0 0,0 14,8H10A6,6 0 0,0 4,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M9,12A1,1 0 0,1 10,13A1,1 0 0,1 9,14A1,1 0 0,1 8,13A1,1 0 0,1 9,12M15,12A1,1 0 0,1 16,13A1,1 0 0,1 15,14A1,1 0 0,1 14,13A1,1 0 0,1 15,12Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Premium Helmet</div>
+                    <div class="addon-price">+ NPR 400 <span>/day</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-premium-helmet">
+                    <label for="addon-premium-helmet" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="600">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9V7L15,13L13.5,7.5C13.1,6.2 11.9,5.5 10.5,5.5C9.8,5.5 9.2,5.7 8.7,6.1L7,7.3C6.8,7.5 6.6,7.9 6.6,8.3S6.8,9.1 7,9.3L8.5,10.8L7.8,16L10.3,16.2L11.2,10.9L12.4,8L14,13.5L9.5,18.5C9.2,18.8 9,19.3 9,19.7S9.2,20.6 9.5,20.9L10.6,22L17,15.6V17H19V13H15V15H16.4L12,19.4L11.6,19L16.8,13.8L21,9M6,14H4V16H2V18H4V20H6V18H8V16H6V14Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Riding Jacket</div>
+                    <div class="addon-price">+ NPR 600 <span>/day</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-riding-jacket">
+                    <label for="addon-riding-jacket" class="toggle-label"></label>
+                </div>
+            </div>
+            <div class="addon-item" data-price="500">
+                <div class="addon-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A3,3 0 0,1 15,5V9A1,1 0 0,1 14,10H13V22H11V10H10A1,1 0 0,1 9,9V5A3,3 0 0,1 12,2M12,4A1,1 0 0,0 11,5V8H13V5A1,1 0 0,0 12,4Z"/>
+                    </svg>
+                </div>
+                <div class="addon-content">
+                    <div class="addon-title">Riding Pants</div>
+                    <div class="addon-price">+ NPR 500 <span>/day</span></div>
+                </div>
+                <div class="addon-toggle">
+                    <input type="checkbox" class="toggle-switch" id="addon-riding-pants">
+                    <label for="addon-riding-pants" class="toggle-label"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Price Display */
+#price-display-container {
+    position: relative;
+    text-align: right;
+}
+.price-final {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+.rental-price {
+    font-size: 2.5rem; /* Make the price larger */
+    font-weight: 900;
+    color: #000000;
+    line-height: 1;
+}
+.price-period {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    margin-left: 0.5rem;
+}
+.price-original-struck {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #999;
+    text-decoration: line-through;
+    height: 1.5rem; /* Reserve space */
+}
+.discount-tag {
+    background-color: #28a745;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.25rem;
+    height: 1.5rem; /* Reserve space */
+    visibility: hidden; /* Hide by default */
+}
+
+/* Floating Icon Animation */
+@keyframes float-up {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -160px) scale(1.5);
+    }
+}
+.floating-icon {
+    position: absolute;
+    z-index: 10;
+    animation: float-up 1.2s ease-out forwards;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+}
+
+.floating-price-text {
+    position: absolute;
+    z-index: 10;
+    animation: float-up 1.5s ease-out forwards;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #28a745;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Add-ons Grid */
+.addons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.addon-item {
+    background: #FFFFFF;
+    border: 2px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative; /* Needed for positioning the floating icon */
+}
+
+.addon-item:hover {
+    border-color: #FF6B35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.addon-item.selected {
+    border-color: #4CAF50;
+    background: #F1F8E9;
+}
+
+.addon-icon {
+    width: 48px;
+    height: 48px;
+    background: #F8F8F8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.addon-item:hover .addon-icon {
+    background: #FF6B35;
+    color: #FFFFFF;
+}
+
+.addon-item.selected .addon-icon {
+    background: #4CAF50;
+    color: #FFFFFF;
+}
+
+.addon-content {
+    flex: 1;
+}
+
+.addon-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.25rem;
+}
+
+.addon-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FF6B35;
+}
+
+.addon-price span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.addon-toggle {
+    position: relative;
+}
+
+.toggle-switch {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    display: block;
+    width: 50px;
+    height: 24px;
+    background: #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.toggle-label::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch:checked + .toggle-label {
+    background: #4CAF50;
+}
+
+.toggle-switch:checked + .toggle-label::before {
+    transform: translateX(26px);
+}
+
+.addon-item:hover .toggle-label {
+    background: #FF6B35;
+}
+
+.addon-item:hover .toggle-switch:checked + .toggle-label {
+    background: #4CAF50;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: #FFFFFF;
+    padding: 2.5rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #000;
+    margin: 0 0 0.5rem;
+}
+
+.modal-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0 0 2rem;
+}
+
+.modal-policy-content {
+    max-height: 50vh;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    padding-right: 1rem; /* for scrollbar */
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.modal-btn-primary, .modal-btn-secondary {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.modal-btn-primary {
+    background: #FF6B35;
+    color: #FFFFFF;
+}
+
+.modal-btn-primary:hover {
+    background: #E55A2B;
+}
+
+.modal-btn-secondary {
+    background: #E5E5E5;
+    color: #333;
+}
+
+.modal-btn-secondary:hover {
+    background: #CCCCCC;
+}
+
+/* Inquiry Button */
+.inquiry-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    background: #FFFFFF;
+    color: #FF6B35;
+    border: 2px solid #FF6B35;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.inquiry-btn:hover {
+    background: #FF6B35;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+@media (max-width: 768px) {
+    .booking-panel {
+        width: 100%;
+    }
+    
+    .inquiry-btn {
+        margin-top: 0.25rem !important;
+    }
+}
+</style>
+
+<!-- Rental Policy -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title">Rental Policy</h2>
+        <p class="section-subtitle">THINGS TO KEEP IN MIND</p>
+        
+        <div class="policy-grid">
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 6.75V5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v1.25M3 6.75V19.5A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5V6.75M3 6.75h18" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M8 11h8M8 15h5" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">Please treat the vehicle with care. Any damage, traffic fines, or violations are your responsibility.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2a2 2 0 0 1 2 2v2h-4V4a2 2 0 0 1 2-2zm-7 6v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                </div>
+                <div class="policy-text">A valid driver's license is required, and helmet use is mandatory for your safety.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M6 19h12M6 19v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M9 13h6" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">You'll need to cover fuel costs during your ride — the rental doesn't include fuel.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M12 6v6l4 2" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">Rental time starts at pickup. Please return the vehicle on time to avoid late charges.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <path d="M8 9v6M16 9v6" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">We're unable to offer refunds once your rental starts, even for early returns or plan changes.</div>
+            </div>
+            <div class="policy-item">
+                <div class="policy-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10zm-5 8v4" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="16" r="1" fill="#FF6B35"/>
+                        <path d="M8 8l8 8" stroke="#FF6B35" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="policy-text">For everyone's safety, riding under the influence of alcohol or drugs is strictly not allowed.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Reviews -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container">
+        <h2 class="section-title">Latest Reviews</h2>
+        <p class="section-subtitle">HEAR IT FROM THEM</p>
+        
+        <div class="reviews-container">
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-name">Ramesh K</div>
+                    <div class="review-date">15 Dec 2024</div>
+                    <div class="review-stars">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="review-text">
+                    Amazing experience renting from Bullet Basecamp! The {{ bike.name }} was in perfect condition and the staff was super helpful. Highly recommend for anyone wanting to explore Pokhara and beyond.
+                </div>
+            </div>
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-name">Sarah M</div>
+                    <div class="review-date">08 Dec 2024</div>
+                    <div class="review-stars">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="review-text">
+                    Best bike rental experience in Pokhara! The team at Bullet Basecamp provided excellent service, clean bikes, and all necessary gear. The {{ bike.name }} handled the mountain roads perfectly.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Similar Motorbikes -->
+<section class="content-section">
+    <div class="container">
+        <h2 class="section-title">Similar Motorbikes in Pokhara</h2>
+        <p class="section-subtitle">A FEW WE THINK YOU MIGHT LIKE</p>
+        
+        <div class="similar-bikes-grid">
+            {% if other_bikes %}
+                {% for other_bike in other_bikes[:4] %}
+                <div class="similar-bike-card">
+                    <div style="background: #eee; border: 2px dashed #FF6B35; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ url_for('static', filename=get_image_path(other_bike.image)) }}" alt="{{ other_bike.name }}" class="similar-bike-image">
+                    </div>
+                    <div class="similar-bike-content">
+                        <div class="similar-bike-location">
+                            <span class="location-flag">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3,3V21L12,18L21,21V3H3M5,5H19V18.13L12,15.8L5,18.13V5Z"/>
+                                </svg>
+                            </span>
+                            <span class="location-text">Nepal, Pokhara</span>
+                            <div class="bike-rating">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <span>16 reviews</span>
+                            </div>
+                        </div>
+                        <h3 class="similar-bike-name">{{ other_bike.name }}</h3>
+                        <div class="similar-bike-pricing">
+                            <span class="price-from">from</span>
+                            <span class="price-amount">{{ other_bike.price_per_day }}</span>
+                            <span class="price-period">/day</span>
+                            <a href="{{ url_for('bike_detail', bike_name=other_bike.name|replace(' ', '-')|lower) }}" class="view-btn">VIEW</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Fallback bikes if no other bikes are available -->
+                {% set fallback_bikes = [
+                    {"name": "Royal Enfield Classic 350", "price": "NPR 3,500", "image": "default-bike.jpg"},
+                    {"name": "Royal Enfield Himalayan", "price": "NPR 4,500", "image": "default-bike.jpg"},
+                    {"name": "Royal Enfield Bullet 500", "price": "NPR 4,000", "image": "default-bike.jpg"},
+                    {"name": "Royal Enfield Meteor 350", "price": "NPR 3,800", "image": "default-bike.jpg"}
+                ] %}
+                
+                {% for other_bike in fallback_bikes %}
+                <div class="similar-bike-card">
+                    <div style="background: #eee; border: 2px dashed #FF6B35; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ url_for('static', filename=get_image_path(other_bike.image)) }}" alt="{{ other_bike.name }}" class="similar-bike-image">
+                    </div>
+                    <div class="similar-bike-content">
+                        <div class="similar-bike-location">
+                            <span class="location-flag">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3,3V21L12,18L21,21V3H3M5,5H19V18.13L12,15.8L5,18.13V5Z"/>
+                                </svg>
+                            </span>
+                            <span class="location-text">Nepal, Pokhara</span>
+                            <div class="bike-rating">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#FFD700">
+                                    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                                </svg>
+                                <span>16 reviews</span>
+                            </div>
+                        </div>
+                        <h3 class="similar-bike-name">{{ other_bike.name }}</h3>
+                        <div class="similar-bike-pricing">
+                            <span class="price-from">from</span>
+                            <span class="price-amount">{{ other_bike.price }}</span>
+                            <span class="price-period">/day</span>
+                            <a href="{{ url_for('rentals') }}" class="view-btn">VIEW</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Schema.org JSON-LD for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ bike.name }} Rental",
+  "description": "{{ bike.description }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Royal Enfield"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ bike.price_per_day.replace('NPR ', '').replace(',', '') }}",
+    "priceCurrency": "NPR",
+    "availability": "{% if bike.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": "Bullet Basecamp"
+    }
+  },
+  "image": "{{ url_for('static', filename=get_image_path(bike.image), _external=True) }}"
+}
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const bookingPanel = document.querySelector('.booking-panel');
+    const daysInput = document.querySelector('.days-input');
+    const addonCheckboxes = document.querySelectorAll('.addon-item input[type="checkbox"]');
+    const priceDisplay = document.querySelector('.rental-price');
+    const pricePeriod = document.querySelector('.price-period');
+    const originalPriceDisplay = document.querySelector('.price-original-struck');
+    const discountTag = document.querySelector('.discount-tag');
+    const daysError = document.querySelector('.days-error');
+
+    const basePrice = parseFloat(bookingPanel.dataset.basePrice) || 0;
+
+    function formatPrice(amount) {
+        return 'NPR ' + amount.toLocaleString('en-US');
+    }
+
+    function calculateAndUpdatePrice() {
+        const days = parseInt(daysInput.value) || 1;
+        
+        // Calculate Add-ons total
+        let addonsTotal = 0;
+        addonCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                const item = checkbox.closest('.addon-item');
+                const addonPrice = parseFloat(item.dataset.price) || 0;
+                addonsTotal += addonPrice;
+            }
+        });
+
+        const totalPerDay = basePrice + addonsTotal;
+        let totalPrice = totalPerDay * days;
+        let originalTotal = totalPrice;
+        let discountPercent = 0;
+
+        // Apply discounts
+        if (days >= 14) {
+            discountPercent = 15;
+        } else if (days >= 7) {
+            discountPercent = 10;
+        } else if (days >= 3) {
+            discountPercent = 5;
+        }
+
+        if (discountPercent > 0) {
+            totalPrice *= (1 - discountPercent / 100);
+            originalPriceDisplay.textContent = formatPrice(originalTotal);
+            discountTag.textContent = `${discountPercent}% OFF`;
+            discountTag.style.visibility = 'visible';
+        } else {
+            originalPriceDisplay.textContent = '';
+            discountTag.style.visibility = 'hidden';
+        }
+
+        priceDisplay.textContent = formatPrice(Math.round(totalPrice));
+        pricePeriod.textContent = days > 1 ? `/ ${days} days` : '/day';
+    }
+
+    function triggerFloatyPrice(addonItem) {
+        const addonPrice = parseFloat(addonItem.dataset.price) || 0;
+        if (addonPrice <= 0) return;
+
+        const floatyText = document.createElement('div');
+        floatyText.textContent = `+NPR ${addonPrice}`;
+        floatyText.className = 'floating-price-text';
+        
+        floatyText.style.top = '50%';
+        floatyText.style.left = '50%';
+
+        addonItem.appendChild(floatyText);
+
+        // Clean up the DOM after animation
+        floatyText.addEventListener('animationend', () => {
+            floatyText.remove();
+        });
+    }
+
+    // Event Listeners
+    daysInput.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value > 99) {
+            e.target.value = 99;
+            daysError.style.display = 'block';
+        } else {
+            daysError.style.display = 'none';
+        }
+        calculateAndUpdatePrice();
+    });
+    addonCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            calculateAndUpdatePrice();
+            const addonItem = checkbox.closest('.addon-item');
+            if (checkbox.checked) {
+                triggerFloatyPrice(addonItem);
+            }
+        });
+    });
+
+    // Initial calculation on page load
+    calculateAndUpdatePrice();
+
+    // --- existing script ---
+    var bookBtn = document.getElementById('book-now-btn');
+    var inquiryBtn = document.getElementById('inquiry-btn');
+    
+    if (!bookBtn) return;
+
+    bookBtn.addEventListener('click', function() {
+        // Get bike name
+        var bikeName = document.querySelector('.bike-title')?.textContent?.trim() || '';
+        // Get number of days
+        var rentalDays = daysInput ? daysInput.value : '';
+        // Get pickup time
+        var pickupSelect = document.querySelector('.time-input');
+        var pickupTime = pickupSelect ? pickupSelect.value : '';
+        // Get riding type
+        var ridingSelect = document.querySelector('.riding-select');
+        var ridingType = ridingSelect ? ridingSelect.value : '';
+
+        // Get selected add-ons
+        var selectedAddons = [];
+        var addonCheckboxesChecked = document.querySelectorAll('.addon-item input[type="checkbox"]:checked');
+        addonCheckboxesChecked.forEach(function(checkbox) {
+            var addonItem = checkbox.closest('.addon-item');
+            var addonTitle = addonItem.querySelector('.addon-title').textContent.trim();
+            var addonPriceRaw = parseFloat(addonItem.dataset.price) || 0;
+            selectedAddons.push(`${addonTitle}|${addonPriceRaw}`);
+        });
+
+        // Get price details
+        const basePrice = parseFloat(bookingPanel.dataset.basePrice) || 0;
+        const finalPrice = priceDisplay.textContent;
+
+        // Build query string
+        var params = new URLSearchParams({
+            type: 'bike',
+            name: bikeName,
+            days: rentalDays,
+            base_price: basePrice,
+            pickup_time: pickupTime,
+            riding_type: ridingType,
+            addons: selectedAddons.join(','),
+            final_price: finalPrice
+        });
+        // Redirect to checkout page with params
+        window.location.href = "{{ url_for('checkout') }}?" + params.toString();
+    });
+    
+    // Handle add-on selection visual feedback
+    var addonToggles = document.querySelectorAll('.addon-item input[type="checkbox"]');
+    addonToggles.forEach(function(toggle) {
+        toggle.addEventListener('change', function() {
+            var addonItem = this.closest('.addon-item');
+            if (this.checked) {
+                addonItem.classList.add('selected');
+            } else {
+                addonItem.classList.remove('selected');
+            }
+        });
+        
+        // Make the whole card clickable
+        var addonItem = toggle.closest('.addon-item');
+        addonItem.addEventListener('click', function(e) {
+            // Don't trigger if clicking on the toggle itself
+            if (e.target !== toggle && e.target !== toggle.nextElementSibling) {
+                toggle.checked = !toggle.checked;
+                toggle.dispatchEvent(new Event('change'));
+            }
+        });
+    });
+
+    // Inquiry button functionality
+    if (inquiryBtn) {
+        inquiryBtn.addEventListener('click', function() {
+            // Get bike name
+            var bikeName = document.querySelector('.bike-title')?.textContent?.trim() || '';
+            // Get number of days
+            var rentalDays = daysInput ? daysInput.value : '';
+            // Get pickup time
+            var pickupSelect = document.querySelector('.time-input');
+            var pickupTime = pickupSelect ? pickupSelect.value : '';
+            // Get riding type
+            var ridingSelect = document.querySelector('.riding-select');
+            var ridingType = ridingSelect ? ridingSelect.value : '';
+
+            // Get selected add-ons
+            var selectedAddons = [];
+            var addonCheckboxesChecked = document.querySelectorAll('.addon-item input[type="checkbox"]:checked');
+            addonCheckboxesChecked.forEach(function(checkbox) {
+                var addonItem = checkbox.closest('.addon-item');
+                var addonTitle = addonItem.querySelector('.addon-title').textContent.trim();
+                var addonPriceRaw = parseFloat(addonItem.dataset.price) || 0;
+                selectedAddons.push(`${addonTitle}|${addonPriceRaw}`);
+            });
+
+            // Build inquiry message
+            var inquiryMessage = `Hi, I'm interested in the ${bikeName} bike rental. I have some questions:\n\n`;
+            inquiryMessage += `Rental Details:\n`;
+            inquiryMessage += `- Number of days: ${rentalDays}\n`;
+            inquiryMessage += `- Pickup time: ${pickupTime}\n`;
+            inquiryMessage += `- Riding type: ${ridingType}\n`;
+            
+            if (selectedAddons.length > 0) {
+                inquiryMessage += `- Selected add-ons: ${selectedAddons.map(addon => addon.split('|')[0]).join(', ')}\n`;
+            }
+            
+            inquiryMessage += `\nPlease let me know about availability, pricing, and any other details I should know.`;
+
+            // Build query string for contact form
+            var params = new URLSearchParams({
+                bike: bikeName,
+                service: 'rentals',
+                message: inquiryMessage
+            });
+
+            // Redirect to contact page with inquiry details
+            window.location.href = "{{ url_for('contact') }}?" + params.toString() + "#contact-form";
+        });
+    }
+});
+</script>
+{% endblock %} 

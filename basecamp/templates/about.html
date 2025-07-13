@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Bullet Basecamp{% endblock %}
+{% block description %}Learn about Bullet Basecamp's story, mission, and team. Over 20 years of Royal Enfield expertise and adventure planning.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='videos/about-hero.mp4') }}" type="video/mp4">
+        <!-- Fallback for browsers that don't support video -->
+    </video>
+    
+    <div class="hero-content">
+        <p class="hero-tagline">Our Story</p>
+        <h1 class="hero-title">About Bullet Basecamp</h1>
+        <p class="body-text" style="color: #FFFFFF; font-size: 1.2rem; margin: 1.5rem 0;">
+            Two decades of passion for Royal Enfield motorcycles and epic adventures. Discover our journey and meet the team behind your next great ride.
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="#values" class="btn-primary">Our Values</a>
+            <a href="#team" class="btn-secondary">Our Team</a>
+        </div>
+    </div>
+</section>
+
+<!-- Our Story -->
+<section class="content-section">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 class="section-title">The Bullet Basecamp Story</h2>
+            <p class="body-text" style="font-size: 1.1rem; margin: 2rem 0;">
+                What started as a weekend passion project in 2004 has grown into the premier Royal Enfield adventure destination. 
+                Founded by motorcycle enthusiasts who believed that every rider deserves an unforgettable journey, 
+                Bullet Basecamp was born from countless miles on mountain passes, desert highways, and coastal roads.
+            </p>
+        </div>
+        
+        <div class="category-grid" style="margin-top: 4rem;">
+            <div>
+                <img src="{{ url_for('static', filename='images/story-founding.jpg') }}" alt="Founding Story" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">The Beginning (2004)</h3>
+                    <p class="body-text">
+                        Started in a small garage with three Royal Enfield Bullets and a dream to share the joy of motorcycle adventures. 
+                        Our first tour took five riders through the Western Ghats.
+                    </p>
+                </div>
+            </div>
+            
+            <div>
+                <img src="{{ url_for('static', filename='images/story-growth.jpg') }}" alt="Growth Story" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Growing Passion (2010)</h3>
+                    <p class="body-text">
+                        Expanded to a full-service motorcycle workshop and rental facility. Added professional tour guides 
+                        and began offering custom adventure planning services.
+                    </p>
+                </div>
+            </div>
+            
+            <div>
+                <img src="{{ url_for('static', filename='images/story-today.jpg') }}" alt="Today Story" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Today (2024)</h3>
+                    <p class="body-text">
+                        Over 10,000 satisfied riders, 50+ tour routes, and a fleet of 30 premium motorcycles. 
+                        We're proud to be the trusted name in Royal Enfield adventures.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Values -->
+<section class="story-section" id="values">
+    <div class="container">
+        <h2 class="section-title" style="color: #FFFFFF; text-align: center; margin-bottom: 3rem;">Our Mission & Values</h2>
+        
+        <div class="category-grid">
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.81,14.12L5.64,11.29L8.17,10.79C11.39,6.41 17.55,4.22 19.78,4.22C19.78,6.45 17.59,12.61 13.21,15.83L12.71,18.36L9.88,21.19C9.27,21.8 8.27,21.8 7.66,21.19L2.81,16.34C2.2,15.73 2.2,14.73 2.81,14.12M7.66,7.66C8.27,7.05 9.27,7.05 9.88,7.66C10.49,8.27 10.49,9.27 9.88,9.88C9.27,10.49 8.27,10.49 7.66,9.88C7.05,9.27 7.05,8.27 7.66,7.66Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Our Mission</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    To provide exceptional Royal Enfield experiences that create lasting memories, foster adventure, 
+                    and connect riders with the beauty of the open road.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C14.8,12.6 13.9,13.5 12.8,13.5H11.2C10.1,13.5 9.2,12.6 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.4,8.7 10.4,10V11.5C10.4,11.8 10.7,12.3 11.2,12.3H12.8C13.3,12.3 13.6,11.8 13.6,11.5V10C13.6,8.7 12.8,8.2 12,8.2Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Safety First</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Every tour, rental, and service prioritizes rider safety. We maintain the highest standards 
+                    in equipment, training, and support to ensure your adventure is both thrilling and secure.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.9,17.39C17.64,16.59 16.89,16 16,16H15V13A1,1 0 0,0 14,12H8V10H10A1,1 0 0,0 11,9V7H13A2,2 0 0,0 15,5V4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15V16A2,2 0 0,0 11,18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Sustainable Adventure</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    We're committed to responsible tourism and environmental stewardship. Our tours support local 
+                    communities and follow sustainable practices.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Excellence</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    From our meticulously maintained motorcycles to our carefully planned routes, 
+                    we never compromise on quality. Your adventure deserves nothing less than the best.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16,12A2,2 0 0,1 18,10A2,2 0 0,1 20,12A2,2 0 0,1 18,14A2,2 0 0,1 16,12M10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12M4,12A2,2 0 0,1 6,10A2,2 0 0,1 8,12A2,2 0 0,1 6,14A2,2 0 0,1 4,12Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Community First</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    We believe in building a strong motorcycle community. Our riders become family, sharing stories, 
+                    experiences, and lifelong friendships forged on the open road.
+                </p>
+            </div>
+            
+            <div class="story-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title" style="color: #FFFFFF; margin-bottom: 1rem;">Innovation</h3>
+                <p class="body-text" style="color: #FFFFFF;">
+                    Constantly evolving our services with cutting-edge technology, modern equipment, 
+                    and innovative tour planning to deliver the ultimate Royal Enfield experience.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="content-section" id="team">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Meet Our Team</h2>
+        
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/team-founder.jpg') }}" alt="Founder" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Raj Patel</h3>
+                    <p class="body-text" style="color: #FF6B35; font-weight: 600; margin-bottom: 1rem;">Founder & Lead Guide</p>
+                    <p class="body-text">
+                        The visionary behind Bullet Basecamp. With over 300,000 miles on Royal Enfields, 
+                        Raj has explored every corner of India and beyond. His passion for adventure and 
+                        expertise in motorcycle touring is legendary.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/team-mechanic.jpg') }}" alt="Chief Mechanic" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Suresh Kumar</h3>
+                    <p class="body-text" style="color: #FF6B35; font-weight: 600; margin-bottom: 1rem;">Chief Mechanic</p>
+                    <p class="body-text">
+                        A Royal Enfield certified master technician with 25 years of experience. 
+                        Suresh ensures every motorcycle in our fleet runs perfectly and has saved 
+                        countless adventures with his roadside expertise.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/team-guide.jpg') }}" alt="Tour Guide" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Priya Sharma</h3>
+                    <p class="body-text" style="color: #FF6B35; font-weight: 600; margin-bottom: 1rem;">Senior Tour Guide</p>
+                    <p class="body-text">
+                        Our most experienced female guide, Priya has led over 200 successful tours. 
+                        Her knowledge of local culture, cuisine, and hidden gems makes every journey 
+                        an authentic cultural experience.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/team-operations.jpg') }}" alt="Operations Manager" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Mike Thompson</h3>
+                    <p class="body-text" style="color: #FF6B35; font-weight: 600; margin-bottom: 1rem;">Operations Manager</p>
+                    <p class="body-text">
+                        The mastermind behind our seamless operations. Mike coordinates tours, 
+                        manages our rental fleet, and ensures every customer receives exceptional service 
+                        from inquiry to journey's end.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/team-safety.jpg') }}" alt="Safety Coordinator" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Anil Gurung</h3>
+                    <p class="body-text" style="color: #FF6B35; font-weight: 600; margin-bottom: 1rem;">Safety Coordinator & Emergency Response</p>
+                    <p class="body-text">
+                        Former army medic turned motorcycle safety expert. Anil ensures all riders are equipped 
+                        with proper safety gear and coordinates our 24/7 emergency response team across Nepal's 
+                        mountain routes.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <img src="{{ url_for('static', filename='images/team-marketing.jpg') }}" alt="Marketing Manager" class="category-image">
+                <div class="category-content">
+                    <h3 class="card-title">Sarah Mitchell</h3>
+                    <p class="body-text" style="color: #FF6B35; font-weight: 600; margin-bottom: 1rem;">Marketing & Customer Relations</p>
+                    <p class="body-text">
+                        Adventure photographer and social media strategist who captures the essence of every journey. 
+                        Sarah manages our online presence and helps riders share their incredible Himalayan experiences 
+                        with the world.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Achievements -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Our Achievements</h2>
+        
+        <div class="category-grid">
+            <div style="text-align: center;">
+                <div style="background: #FF6B35; color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 1rem;">10K+</div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Happy Riders</h3>
+                <p class="body-text">Over 10,000 satisfied customers have experienced unforgettable adventures with us.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div style="background: #FF6B35; color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 1rem;">20+</div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Years Experience</h3>
+                <p class="body-text">Two decades of Royal Enfield expertise and adventure planning experience.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div style="background: #FF6B35; color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 1rem;">50+</div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Tour Routes</h3>
+                <p class="body-text">Carefully curated routes covering the most scenic and adventurous destinations.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div style="background: #FF6B35; color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 1rem;">99%</div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Safety Record</h3>
+                <p class="body-text">Maintaining an exceptional safety record with comprehensive support and preparation.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div style="background: #FF6B35; color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 1rem;">30+</div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Premium Motorcycles</h3>
+                <p class="body-text">Fleet of 30+ well-maintained Royal Enfield motorcycles ready for any adventure.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div style="background: #FF6B35; color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; margin: 0 auto 1rem;">24/7</div>
+                <h3 class="card-title" style="margin-bottom: 1rem;">Emergency Support</h3>
+                <p class="body-text">Round-the-clock emergency assistance and breakdown service wherever you ride.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="content-section" style="background: #F8F8F8;">
+    <div class="container" style="text-align: center;">
+        <h2 class="section-title">Ready to Join Our Adventure Family?</h2>
+        <p class="body-text" style="font-size: 1.1rem; margin: 2rem 0; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Whether you're planning your first motorcycle tour or looking for expert service, 
+            we're here to make your Royal Enfield dreams come true.
+        </p>
+        
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="{{ url_for('contact') }}#contact-form" class="btn-primary">Get Started</a>
+            <a href="{{ url_for('tours') }}" class="btn-secondary" style="color: #000000; border-color: #000000;">View Adventures</a>
+        </div>
+    </div>
+</section>
+{% endblock %} 
